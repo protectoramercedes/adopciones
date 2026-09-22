@@ -1,0 +1,753 @@
+/* =========================================================
+   APADRINAR
+   ========================================================= */
+
+.apadrinar-page {
+  min-height: 100vh;
+  background: #f8f6f3;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.apadrinar-hero {
+  max-width: 900px;
+
+  margin: 0 auto;
+
+  padding: 90px 24px 65px;
+
+  text-align: center;
+}
+
+.apadrinar-eyebrow {
+  display: inline-block;
+
+  margin-bottom: 18px;
+
+  color: #a5163d;
+
+  font-size: 0.75rem;
+  font-weight: 700;
+
+  letter-spacing: 0.16em;
+}
+
+.apadrinar-hero h1 {
+  margin: 0;
+
+  color: #252222;
+
+  font-family:
+    "Playfair Display",
+    serif;
+
+  font-size:
+    clamp(
+      2.6rem,
+      6vw,
+      4.8rem
+    );
+
+  line-height: 1.05;
+}
+
+.apadrinar-hero h1 span {
+  color: #a5163d;
+}
+
+.apadrinar-hero p {
+  max-width: 680px;
+
+  margin: 25px auto 0;
+
+  color: #746e6a;
+
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+
+/* =========================================================
+   INTRO
+   ========================================================= */
+
+.apadrinar-intro {
+  display: grid;
+
+  grid-template-columns:
+    100px 1fr;
+
+  align-items: center;
+
+  gap: 30px;
+
+  max-width: 950px;
+
+  margin: 0 auto 85px;
+
+  padding: 35px 40px;
+
+  background: #fff;
+
+  border: 1px solid #e9e2de;
+  border-radius: 22px;
+
+  box-shadow:
+    0 15px 40px
+    rgba(0, 0, 0, 0.04);
+}
+
+.apadrinar-intro-icon {
+  display: grid;
+
+  place-items: center;
+
+  width: 90px;
+  height: 90px;
+
+  background: #f7ecef;
+
+  border-radius: 50%;
+
+  font-size: 2.3rem;
+}
+
+.apadrinar-intro span {
+  color: #a5163d;
+
+  font-size: 0.7rem;
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+}
+
+.apadrinar-intro h2 {
+  margin: 7px 0 10px;
+
+  color: #292525;
+
+  font-family:
+    "Playfair Display",
+    serif;
+
+  font-size: 2rem;
+}
+
+.apadrinar-intro p {
+  margin: 0;
+
+  color: #77716d;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   CATÁLOGO
+   ========================================================= */
+
+.apadrinar-catalogo {
+  max-width: 1180px;
+
+  margin: 0 auto;
+
+  padding: 0 24px 90px;
+}
+
+.apadrinar-heading {
+  margin-bottom: 35px;
+
+  text-align: center;
+}
+
+.apadrinar-heading > span {
+  color: #a5163d;
+
+  font-size: 0.7rem;
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+}
+
+.apadrinar-heading h2 {
+  margin: 9px 0;
+
+  color: #292525;
+
+  font-family:
+    "Playfair Display",
+    serif;
+
+  font-size: 2.5rem;
+}
+
+.apadrinar-heading p {
+  margin: 0;
+
+  color: #817a76;
+}
+
+
+/* =========================================================
+   GRID
+   ========================================================= */
+
+.apadrinar-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 24px;
+}
+
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.apadrinar-card {
+  overflow: hidden;
+
+  background: #fff;
+
+  border:
+    1px solid #e9e2de;
+
+  border-radius: 20px;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.apadrinar-card:hover {
+  transform:
+    translateY(-5px);
+
+  box-shadow:
+    0 18px 45px
+    rgba(0, 0, 0, 0.07);
+}
+
+.apadrinar-card-image {
+  position: relative;
+
+  height: 300px;
+
+  overflow: hidden;
+
+  background: #eee9e5;
+}
+
+.apadrinar-card-image img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.apadrinar-card-placeholder {
+  display: grid;
+
+  place-items: center;
+
+  width: 100%;
+  height: 100%;
+
+  font-size: 3rem;
+}
+
+.apadrinar-card-badge {
+  position: absolute;
+
+  left: 16px;
+  bottom: 16px;
+
+  padding: 8px 13px;
+
+  background:
+    rgba(255, 255, 255, 0.94);
+
+  color: #a5163d;
+
+  border-radius: 999px;
+
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   CONTENIDO CARD
+   ========================================================= */
+
+.apadrinar-card-content {
+  padding: 22px;
+}
+
+.apadrinar-card-title {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+}
+
+.apadrinar-card-title h3 {
+  margin: 0;
+
+  color: #282424;
+
+  font-family:
+    "Playfair Display",
+    serif;
+
+  font-size: 1.8rem;
+}
+
+.apadrinar-card-title > span {
+  color: #a5163d;
+
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.apadrinar-card-data {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 7px;
+
+  margin-top: 8px;
+
+  color: #8a827d;
+
+  font-size: 0.82rem;
+}
+
+.apadrinar-card-description {
+  display: -webkit-box;
+
+  overflow: hidden;
+
+  margin: 17px 0 20px;
+
+  color: #706a66;
+
+  line-height: 1.6;
+
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+
+/* =========================================================
+   BOTONES
+   ========================================================= */
+
+.apadrinar-card-actions {
+  display: grid;
+
+  grid-template-columns:
+    auto 1fr;
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin-top: 20px;
+}
+
+.apadrinar-conocer {
+  color: #706a66;
+
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  text-decoration: none;
+}
+
+.apadrinar-conocer:hover {
+  color: #a5163d;
+}
+
+.apadrinar-button {
+  padding: 12px 16px;
+
+  background: #a5163d;
+
+  color: #fff;
+
+  border: 0;
+  border-radius: 999px;
+
+  font-family: inherit;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.apadrinar-button:hover {
+  background: #86102f;
+
+  transform:
+    translateY(-1px);
+}
+
+.apadrinar-secondary-button {
+  display: inline-flex;
+
+  margin-top: 12px;
+
+  padding: 12px 20px;
+
+  background: #a5163d;
+
+  color: #fff;
+
+  border-radius: 999px;
+
+  text-decoration: none;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   ESTADOS VACÍOS
+   ========================================================= */
+
+.apadrinar-estado {
+  padding: 65px 25px;
+
+  background: #fff;
+
+  border:
+    1px solid #e9e2de;
+
+  border-radius: 20px;
+
+  text-align: center;
+}
+
+.apadrinar-estado > span {
+  display: block;
+
+  margin-bottom: 12px;
+
+  font-size: 2.5rem;
+}
+
+.apadrinar-estado h3 {
+  margin: 0 0 8px;
+
+  color: #292525;
+
+  font-family:
+    "Playfair Display",
+    serif;
+
+  font-size: 1.7rem;
+}
+
+.apadrinar-estado p {
+  max-width: 520px;
+
+  margin:
+    0 auto;
+
+  color: #817a76;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   CIERRE
+   ========================================================= */
+
+.apadrinar-cierre {
+  padding: 70px 24px;
+
+  background: #a5163d;
+
+  color: #fff;
+
+  text-align: center;
+}
+
+.apadrinar-cierre > span {
+  font-size: 2.2rem;
+}
+
+.apadrinar-cierre h2 {
+  max-width: 700px;
+
+  margin: 15px auto;
+
+  font-family:
+    "Playfair Display",
+    serif;
+
+  font-size: 2.5rem;
+
+  line-height: 1.2;
+}
+
+.apadrinar-cierre p {
+  max-width: 600px;
+
+  margin: 0 auto;
+
+  opacity: 0.9;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .apadrinar-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 650px) {
+
+  .apadrinar-hero {
+    padding:
+      60px 20px 45px;
+  }
+
+  .apadrinar-intro {
+    grid-template-columns: 1fr;
+
+    margin:
+      0 20px 60px;
+
+    padding: 28px 22px;
+
+    text-align: center;
+  }
+
+  .apadrinar-intro-icon {
+    margin: 0 auto;
+  }
+
+  .apadrinar-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .apadrinar-card-image {
+    height: 330px;
+  }
+
+  .apadrinar-card-actions {
+    grid-template-columns: 1fr;
+
+    text-align: center;
+  }
+
+  .apadrinar-button {
+    width: 100%;
+  }
+
+  .apadrinar-cierre h2 {
+    font-size: 2rem;
+  }
+
+}
+
+/* =========================================================
+   FORMULARIO PADRINAZGO — SWEETALERT
+   ========================================================= */
+
+.padrinazgo-form {
+  text-align: left;
+}
+
+.padrinazgo-intro {
+  margin: 0 0 22px;
+
+  color: #706a66;
+
+  text-align: center;
+
+  line-height: 1.6;
+}
+
+.padrinazgo-field {
+  display: block;
+
+  margin-bottom: 15px;
+}
+
+.padrinazgo-field > span {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #3a3533;
+
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.padrinazgo-field .swal2-input {
+  width: 100%;
+
+  height: 46px;
+
+  margin: 0;
+
+  padding: 0 13px;
+
+  border: 1px solid #ddd4cf;
+  border-radius: 10px;
+
+  box-shadow: none;
+
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.padrinazgo-field .swal2-input:focus {
+  border-color: #a5163d;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(165, 22, 61, 0.08);
+}
+
+.padrinazgo-anonimo {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  margin: 18px 0 12px;
+
+  color: #625c58;
+
+  font-size: 0.85rem;
+
+  cursor: pointer;
+}
+
+.padrinazgo-anonimo input {
+  width: 17px;
+  height: 17px;
+
+  accent-color: #a5163d;
+}
+
+.padrinazgo-privacy {
+  padding: 12px 14px;
+
+  background: #f7f4f2;
+
+  color: #7d7672;
+
+  border-radius: 10px;
+
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.padrinazgo-montos {
+  margin-top: 24px;
+}
+
+.padrinazgo-montos > strong {
+  display: block;
+
+  margin-bottom: 10px;
+
+  color: #3a3533;
+
+  font-size: 0.85rem;
+}
+
+.padrinazgo-montos-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 8px;
+}
+
+.padrinazgo-monto-option {
+  cursor: pointer;
+}
+
+.padrinazgo-monto-option input {
+  position: absolute;
+
+  opacity: 0;
+
+  pointer-events: none;
+}
+
+.padrinazgo-monto-option span {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 46px;
+
+  background: #fff;
+
+  color: #a5163d;
+
+  border: 1px solid #dbc9cf;
+  border-radius: 10px;
+
+  font-weight: 700;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.padrinazgo-monto-option
+  input:checked
+  + span {
+  background: #a5163d;
+
+  color: #fff;
+
+  border-color: #a5163d;
+}
+
+@media (max-width: 500px) {
+  .padrinazgo-montos-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+}

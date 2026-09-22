@@ -1,3 +1,23 @@
+/* =========================================================
+   PROTECTORA SAN FRANCISCO DE ASÍS — GLOBAL.CSS
+   =========================================================
+   ÍNDICE
+   01. Variables, reset y base
+   02. Header público
+   03. Home / Hero / Formas de ayudar
+   04. Páginas generales y Footer
+   05. Detalle del peludito
+   06. Catálogo de adopciones
+   07. Administración
+   08. Carga rápida
+   09. Ajustes responsive finales
+
+   Nota:
+   Se conserva el diseño existente. Los ajustes finales hacen
+   que el header público y el encabezado/sidebar del Admin NO
+   queden fijos en mobile, para priorizar el scroll del contenido.
+   ========================================================= */
+
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap");
 
 :root {
@@ -46,7 +66,9 @@ select {
   font: inherit;
 }
 
-/* HEADER */
+/* =========================================================
+   02. HEADER PÚBLICO
+   ========================================================= */
 
 .header {
   background: white;
@@ -103,7 +125,9 @@ select {
   background: var(--bordo-oscuro);
 }
 
-/* HERO */
+/* =========================================================
+   03. HOME — HERO
+   ========================================================= */
 
 .hero {
   min-height: 610px;
@@ -208,7 +232,7 @@ select {
   font-weight: 600;
 }
 
-/* FORMAS DE AYUDAR */
+/* HOME — FORMAS DE AYUDAR */
 
 .formas-ayudar {
   max-width: 1200px;
@@ -282,7 +306,9 @@ select {
   font-weight: 700;
 }
 
-/* PÁGINAS */
+/* =========================================================
+   04. PÁGINAS GENERALES
+   ========================================================= */
 
 .page-container {
   max-width: 1200px;
@@ -378,9 +404,9 @@ select {
     grid-template-columns: 1fr;
   }
 }
-/* =========================
-   DETALLE DEL PELUDITO
-========================= */
+/* =========================================================
+   05. DETALLE DEL PELUDITO
+   ========================================================= */
 
 .detalle-page {
   max-width: 1200px;
@@ -681,15 +707,17 @@ select {
   }
 }
 
-/* ==========================================
-   CATÁLOGO DE ADOPCIONES
-========================================== */
+/* =========================================================
+   06. CATÁLOGO DE ADOPCIONES
+   ========================================================= */
 
 .adopciones-page {
   background: #fff;
 }
 
-/* HERO */
+/* =========================================================
+   03. HOME — HERO
+   ========================================================= */
 
 .adopciones-hero {
   padding: 75px 24px 65px;
@@ -1144,5 +1172,2344 @@ select {
 
   .peludito-imagen {
     height: 340px;
+  }
+}
+/* =========================================================
+   07. ADMINISTRACIÓN
+   ========================================================= */
+
+.admin-layout {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  background: #f7f6f4;
+}
+
+.admin-sidebar {
+  position: sticky;
+  top: 0;
+
+  height: 100vh;
+  padding: 30px 20px;
+
+  display: flex;
+  flex-direction: column;
+
+  background: white;
+  border-right: 1px solid #e8e5e2;
+}
+
+.admin-brand img {
+  width: 180px;
+  display: block;
+}
+
+.admin-brand > span {
+  display: block;
+
+  margin: 12px 8px 30px;
+
+  color: #999;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.admin-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.admin-nav a {
+  padding: 13px 15px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  border-radius: 9px;
+
+  color: #666;
+  font-weight: 600;
+}
+
+.admin-nav a:hover,
+.admin-nav a.active {
+  background: #f8f2f4;
+  color: var(--bordo);
+}
+
+.admin-sidebar-footer {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.admin-sidebar-footer a {
+  color: #777;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.admin-main {
+  min-width: 0;
+}
+
+.admin-page {
+  max-width: 1250px;
+  margin: auto;
+  padding: 55px 45px 100px;
+}
+
+.admin-page-header {
+  margin-bottom: 40px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.admin-eyebrow {
+  color: var(--bordo);
+
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+}
+
+.admin-page-header h1,
+.admin-form-heading h1 {
+  margin: 6px 0;
+
+  font-family: "Playfair Display", serif;
+  font-size: 3rem;
+}
+
+.admin-page-header p,
+.admin-form-heading p {
+  color: #777;
+}
+
+.admin-primary-button {
+  min-height: 46px;
+  padding: 0 20px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 100px;
+
+  background: var(--bordo);
+  color: white;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.admin-primary-button:hover {
+  background: var(--bordo-oscuro);
+}
+
+/* STATS */
+
+.admin-stats {
+  margin-bottom: 50px;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.admin-stat {
+  padding: 24px;
+
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  background: white;
+  border: 1px solid #ebe8e5;
+  border-radius: 15px;
+}
+
+.admin-stat > span {
+  font-size: 1.8rem;
+}
+
+.admin-stat strong {
+  display: block;
+  font-size: 1.8rem;
+}
+
+.admin-stat p {
+  margin-top: 3px;
+
+  color: #888;
+  font-size: 0.75rem;
+}
+
+/* DASHBOARD */
+
+.admin-dashboard-section {
+  padding: 30px;
+
+  background: white;
+  border: 1px solid #ebe8e5;
+  border-radius: 18px;
+}
+
+.admin-section-heading {
+  margin-bottom: 25px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-section-heading h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 1.7rem;
+}
+
+.admin-section-heading p {
+  margin-top: 4px;
+
+  color: #888;
+  font-size: 0.82rem;
+}
+
+.admin-section-heading > a {
+  color: var(--bordo);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.admin-recent-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-recent-item {
+  min-height: 75px;
+  padding: 10px 0;
+
+  display: grid;
+  grid-template-columns:
+    55px
+    minmax(150px, 1fr)
+    130px
+    60px;
+
+  align-items: center;
+  gap: 15px;
+
+  border-bottom: 1px solid #eee;
+}
+
+.admin-recent-item:last-child {
+  border-bottom: none;
+}
+
+.admin-recent-item img {
+  width: 55px;
+  height: 55px;
+
+  object-fit: cover;
+  border-radius: 9px;
+}
+
+.admin-recent-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-recent-info span {
+  margin-top: 3px;
+
+  color: #aaa;
+  font-size: 0.68rem;
+}
+
+.admin-recent-item > a {
+  color: var(--bordo);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+/* FILTROS */
+
+.admin-filters {
+  margin-bottom: 25px;
+
+  padding: 13px;
+
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 10px;
+
+  background: white;
+  border: 1px solid #e8e5e2;
+  border-radius: 13px;
+}
+
+.admin-search {
+  min-height: 48px;
+  padding: 0 15px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  border: 1px solid #ddd;
+  border-radius: 9px;
+}
+
+.admin-search input {
+  width: 100%;
+
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+.admin-filters select {
+  padding: 0 15px;
+
+  border: 1px solid #ddd;
+  border-radius: 9px;
+
+  background: white;
+}
+
+.admin-table-header {
+  margin-bottom: 12px;
+
+  color: #777;
+  font-size: 0.82rem;
+}
+
+/* LISTADO */
+
+.admin-dogs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-dog-row {
+  min-height: 88px;
+  padding: 12px 16px;
+
+  display: grid;
+
+  grid-template-columns:
+    64px
+    minmax(150px, 1.4fr)
+    0.7fr
+    0.7fr
+    0.7fr
+    110px
+    70px;
+
+  align-items: center;
+  gap: 15px;
+
+  background: white;
+  border: 1px solid #ebe8e5;
+  border-radius: 12px;
+}
+
+.admin-dog-row > img {
+  width: 64px;
+  height: 64px;
+
+  object-fit: cover;
+  border-radius: 9px;
+}
+
+.admin-dog-name {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-dog-name strong {
+  font-size: 1rem;
+}
+
+.admin-dog-name span {
+  margin-top: 3px;
+
+  color: #aaa;
+  font-size: 0.68rem;
+}
+
+.admin-dog-data {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-dog-data small {
+  margin-bottom: 4px;
+
+  color: #aaa;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.admin-dog-data span {
+  font-size: 0.8rem;
+}
+
+.admin-status {
+  width: fit-content;
+
+  padding: 7px 10px;
+
+  background: #eef7ef;
+
+  border-radius: 100px;
+
+  color: #48794e;
+
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.admin-edit-button {
+  color: var(--bordo);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+/* FORM */
+
+.admin-form-back {
+  margin-bottom: 30px;
+}
+
+.admin-form-back a {
+  color: #777;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.admin-form-heading {
+  max-width: 700px;
+  margin-bottom: 45px;
+}
+
+.admin-dog-form {
+  max-width: 900px;
+}
+
+.admin-form-section {
+  margin-bottom: 25px;
+  padding: 32px;
+
+  background: white;
+  border: 1px solid #ebe8e5;
+  border-radius: 17px;
+}
+
+.admin-form-section-title {
+  margin-bottom: 28px;
+
+  display: flex;
+  gap: 14px;
+}
+
+.admin-form-section-title > span {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  background: var(--bordo);
+  border-radius: 50%;
+
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.admin-form-section-title h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 1.5rem;
+}
+
+.admin-form-section-title p {
+  margin-top: 3px;
+
+  color: #999;
+  font-size: 0.75rem;
+}
+
+.admin-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.admin-form-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  color: #555;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.admin-form-full {
+  grid-column: 1 / -1;
+}
+
+.admin-form-grid input,
+.admin-form-grid select,
+.admin-form-grid textarea {
+  width: 100%;
+
+  padding: 13px 14px;
+
+  border: 1px solid #ddd;
+  border-radius: 9px;
+
+  outline: none;
+
+  background: white;
+}
+
+.admin-form-grid input,
+.admin-form-grid select {
+  min-height: 49px;
+}
+
+.admin-form-grid textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.admin-form-grid input:focus,
+.admin-form-grid select:focus,
+.admin-form-grid textarea:focus {
+  border-color: var(--bordo);
+}
+
+/* CHECKS */
+
+.admin-check-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.admin-check-grid label {
+  position: relative;
+
+  padding: 20px;
+
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+
+  border: 1px solid #e5e2df;
+  border-radius: 12px;
+
+  cursor: pointer;
+}
+
+.admin-check-grid label > input {
+  accent-color: var(--bordo);
+}
+
+.admin-check-grid label > span {
+  font-size: 1.4rem;
+}
+
+.admin-check-grid label div {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-check-grid strong {
+  font-size: 0.8rem;
+}
+
+.admin-check-grid small {
+  margin-top: 4px;
+
+  color: #999;
+  line-height: 1.4;
+}
+
+/* FOTOS */
+
+.admin-upload {
+  min-height: 150px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border: 2px dashed #d9d4d1;
+  border-radius: 13px;
+
+  background: #faf9f8;
+
+  cursor: pointer;
+}
+
+.admin-upload:hover {
+  border-color: var(--bordo);
+}
+
+.admin-upload input {
+  display: none;
+}
+
+.admin-upload > span {
+  margin-bottom: 8px;
+  font-size: 2rem;
+}
+
+.admin-upload strong {
+  color: var(--bordo);
+}
+
+.admin-upload small {
+  margin-top: 5px;
+  color: #999;
+}
+
+.admin-photo-grid {
+  margin-top: 18px;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.admin-photo-preview {
+  position: relative;
+
+  height: 150px;
+
+  overflow: hidden;
+
+  border-radius: 10px;
+}
+
+.admin-photo-preview img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.admin-photo-preview > span {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+
+  padding: 5px 8px;
+
+  border-radius: 100px;
+
+  background: var(--bordo);
+  color: white;
+
+  font-size: 0.6rem;
+  font-weight: 700;
+}
+
+.admin-photo-preview button {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+
+  width: 27px;
+  height: 27px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: rgba(0, 0, 0, 0.65);
+  color: white;
+
+  cursor: pointer;
+}
+
+.admin-photo-help {
+  margin-top: 12px;
+
+  color: #999;
+  font-size: 0.72rem;
+}
+
+/* PUBLICAR */
+
+.admin-publish-toggle {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  cursor: pointer;
+}
+
+.admin-publish-toggle input {
+  width: 18px;
+  height: 18px;
+
+  accent-color: var(--bordo);
+}
+
+.admin-publish-toggle div {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-publish-toggle strong {
+  font-size: 0.85rem;
+}
+
+.admin-publish-toggle small {
+  margin-top: 4px;
+  color: #999;
+}
+
+/* ACCIONES */
+
+.admin-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
+}
+
+.admin-cancel-button {
+  color: #777;
+  font-weight: 600;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1000px) {
+  .admin-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .admin-dog-row {
+    grid-template-columns:
+      60px
+      1fr
+      110px
+      60px;
+  }
+
+  .admin-dog-data {
+    display: none;
+  }
+}
+
+@media (max-width: 750px) {
+  .admin-layout {
+    display: block;
+  }
+
+  .admin-sidebar {
+    position: static;
+
+    width: 100%;
+    height: auto;
+
+    padding: 15px;
+
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .admin-brand img {
+    width: 140px;
+  }
+
+  .admin-brand > span {
+    display: none;
+  }
+
+  .admin-nav {
+    margin-top: 15px;
+
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  .admin-sidebar-footer {
+    display: none;
+  }
+
+  .admin-page {
+    padding: 35px 18px 80px;
+  }
+
+  .admin-page-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .admin-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-filters {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-dog-row {
+    grid-template-columns:
+      55px
+      1fr
+      auto;
+  }
+
+  .admin-dog-row > img {
+    width: 55px;
+    height: 55px;
+  }
+
+  .admin-status {
+    display: none;
+  }
+
+  .admin-form-grid,
+  .admin-check-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-form-full {
+    grid-column: auto;
+  }
+
+  .admin-photo-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* =========================================================
+   08. CARGA RÁPIDA
+   ========================================================= */
+
+.admin-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-camera-button {
+  min-height: 46px;
+
+  padding: 0 20px;
+
+  border: 1px solid var(--bordo);
+  border-radius: 100px;
+
+  background: white;
+
+  color: var(--bordo);
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.admin-camera-button:hover {
+  background: #f8f2f4;
+}
+
+.quick-dog-form {
+  margin-top: 10px;
+
+  text-align: left;
+}
+
+.quick-dog-preview {
+  display: block;
+
+  width: 100%;
+  height: 230px;
+
+  margin-bottom: 20px;
+
+  object-fit: cover;
+
+  border-radius: 14px;
+}
+
+.quick-label {
+  display: block;
+
+  margin-bottom: 14px;
+
+  color: #555;
+
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.quick-input,
+.quick-select {
+  width: 100% !important;
+
+  margin: 7px 0 0 !important;
+
+  box-sizing: border-box;
+}
+
+.quick-two-columns {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 12px;
+}
+
+.quick-help {
+  margin-top: 18px;
+
+  padding: 13px;
+
+  background: #f8f4f0;
+
+  border-radius: 9px;
+
+  color: #777;
+
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 750px) {
+
+  .admin-header-actions {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+  .admin-camera-button,
+  .admin-header-actions
+    .admin-primary-button {
+    width: 100%;
+  }
+
+  .quick-two-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================
+   AJUSTES MOBILE DE NAVEGACIÓN
+   En pantallas chicas, los encabezados forman
+   parte del flujo y desaparecen al hacer scroll.
+========================================== */
+
+@media (max-width: 850px) {
+  .header {
+    position: relative;
+    top: auto;
+  }
+}
+
+/* ==========================================
+   AJUSTES MOBILE ADMIN
+========================================== */
+
+@media (max-width: 750px) {
+  .admin-layout {
+    display: block;
+    min-height: 100vh;
+  }
+
+  .admin-sidebar {
+    position: relative;
+    top: auto;
+    width: 100%;
+    height: auto;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .admin-main {
+    width: 100%;
+    min-width: 0;
+    overflow: visible;
+  }
+
+  .admin-page {
+    width: 100%;
+  }
+
+  .admin-dogs-list {
+    overflow: visible;
+  }
+}
+
+/* =========================================================
+   SOLICITUD DE ADOPCIÓN
+   ========================================================= */
+
+.solicitud-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 45px 24px 110px;
+}
+
+.solicitud-volver {
+  margin-bottom: 35px;
+}
+
+.solicitud-volver a {
+  color: var(--gris);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.solicitud-volver a:hover {
+  color: var(--bordo);
+}
+
+/* LAYOUT */
+
+.solicitud-layout {
+  display: grid;
+  grid-template-columns: 340px minmax(0, 1fr);
+  gap: 65px;
+  align-items: start;
+}
+
+/* =========================================================
+   TARJETA DEL PELUDITO
+   ========================================================= */
+
+.solicitud-perro {
+  position: sticky;
+  top: 120px;
+
+  overflow: hidden;
+
+  background: #fff;
+
+  border: 1px solid #e9e5e2;
+  border-radius: 20px;
+}
+
+.solicitud-perro > img {
+  display: block;
+
+  width: 100%;
+  height: 300px;
+
+  object-fit: cover;
+}
+
+.solicitud-perro-info {
+  padding: 25px;
+}
+
+.solicitud-perro-info > span {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: var(--bordo);
+
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.solicitud-perro-info h2 {
+  margin: 0 0 7px;
+
+  font-family: "Playfair Display", serif;
+  font-size: 2.4rem;
+  line-height: 1;
+}
+
+.solicitud-perro-info p {
+  color: var(--gris);
+  font-size: 0.9rem;
+}
+
+.solicitud-perro-info small {
+  display: block;
+
+  margin-top: 15px;
+
+  color: #aaa;
+
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+}
+
+.solicitud-aviso {
+  padding: 20px 24px;
+
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  background: var(--crema);
+
+  color: #666;
+
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.solicitud-aviso > span {
+  flex-shrink: 0;
+
+  font-size: 1.25rem;
+}
+
+/* =========================================================
+   ENCABEZADO DEL FORMULARIO
+   ========================================================= */
+
+.solicitud-contenido {
+  min-width: 0;
+}
+
+.solicitud-header {
+  max-width: 720px;
+
+  margin-bottom: 45px;
+}
+
+.form-eyebrow {
+  display: block;
+
+  margin-bottom: 12px;
+
+  color: var(--bordo);
+
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.solicitud-header h1 {
+  margin: 0;
+
+  font-family: "Playfair Display", serif;
+
+  font-size: clamp(2.6rem, 5vw, 4rem);
+
+  line-height: 1.07;
+}
+
+.solicitud-header h1 span {
+  color: var(--bordo);
+}
+
+.solicitud-header p {
+  max-width: 620px;
+
+  margin-top: 18px;
+
+  color: var(--gris);
+
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* =========================================================
+   FORMULARIO
+   ========================================================= */
+
+.adopcion-form {
+  width: 100%;
+}
+
+.adopcion-form fieldset {
+  margin: 0 0 38px;
+  padding: 0 0 38px;
+
+  border: 0;
+  border-bottom: 1px solid #e9e6e3;
+}
+
+.adopcion-form legend {
+  width: 100%;
+
+  margin-bottom: 25px;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  font-family: "Playfair Display", serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+
+  color: var(--texto);
+}
+
+.adopcion-form legend span {
+  width: 36px;
+  height: 36px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  background: var(--bordo);
+
+  border-radius: 50%;
+
+  color: #fff;
+
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 20px;
+}
+
+.form-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  color: #555;
+
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.form-full {
+  grid-column: 1 / -1;
+}
+
+.form-grid input,
+.form-grid select,
+.form-grid textarea {
+  width: 100%;
+
+  padding: 14px 15px;
+
+  border: 1px solid #dedbd8;
+  border-radius: 10px;
+
+  outline: none;
+
+  background: #fff;
+
+  color: var(--texto);
+
+  font: inherit;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.form-grid input,
+.form-grid select {
+  min-height: 51px;
+}
+
+.form-grid textarea {
+  min-height: 125px;
+
+  resize: vertical;
+
+  line-height: 1.55;
+}
+
+.form-grid input::placeholder,
+.form-grid textarea::placeholder {
+  color: #aaa;
+}
+
+.form-grid input:focus,
+.form-grid select:focus,
+.form-grid textarea:focus {
+  border-color: var(--bordo);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(140, 23, 56, 0.08);
+}
+
+/* =========================================================
+   COMPROMISO
+   ========================================================= */
+
+.compromiso-check {
+  padding: 20px;
+
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+
+  background: var(--crema);
+
+  border: 1px solid #eee7e2;
+  border-radius: 13px;
+
+  color: #555;
+
+  font-size: 0.83rem;
+  line-height: 1.6;
+
+  cursor: pointer;
+}
+
+.compromiso-check input {
+  width: 19px;
+  height: 19px;
+
+  margin-top: 2px;
+
+  flex-shrink: 0;
+
+  accent-color: var(--bordo);
+}
+
+/* =========================================================
+   BOTÓN ENVIAR
+   ========================================================= */
+
+.enviar-solicitud {
+  width: 100%;
+
+  margin-top: 20px;
+  padding: 17px 25px;
+
+  border: 0;
+  border-radius: 100px;
+
+  background: var(--bordo);
+
+  color: #fff;
+
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.enviar-solicitud:hover {
+  background: var(--bordo-oscuro);
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 10px 25px
+    rgba(140, 23, 56, 0.15);
+}
+
+/* =========================================================
+   CONFIRMACIÓN
+   ========================================================= */
+
+.solicitud-confirmacion {
+  min-height: 75vh;
+
+  padding: 80px 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--crema);
+}
+
+.confirmacion-card {
+  width: 100%;
+  max-width: 650px;
+
+  padding: 55px;
+
+  background: #fff;
+
+  border: 1px solid #eee8e4;
+  border-radius: 24px;
+
+  text-align: center;
+
+  box-shadow:
+    0 20px 60px
+    rgba(0, 0, 0, 0.06);
+}
+
+.confirmacion-icono {
+  display: block;
+
+  margin-bottom: 18px;
+
+  font-size: 3rem;
+}
+
+.confirmacion-card h1 {
+  margin: 8px 0 17px;
+
+  font-family: "Playfair Display", serif;
+  font-size: 2.7rem;
+  line-height: 1.1;
+}
+
+.confirmacion-card > p {
+  color: var(--gris);
+
+  line-height: 1.7;
+}
+
+.confirmacion-perro {
+  margin: 30px 0;
+  padding: 12px;
+
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  border: 1px solid #eee;
+  border-radius: 14px;
+
+  text-align: left;
+}
+
+.confirmacion-perro img {
+  width: 75px;
+  height: 75px;
+
+  flex-shrink: 0;
+
+  object-fit: cover;
+
+  border-radius: 10px;
+}
+
+.confirmacion-perro div {
+  display: flex;
+  flex-direction: column;
+}
+
+.confirmacion-perro small {
+  color: #999;
+
+  font-size: 0.6rem;
+  letter-spacing: 1px;
+}
+
+.confirmacion-perro strong {
+  font-family: "Playfair Display", serif;
+  font-size: 1.5rem;
+}
+
+.confirmacion-perro span {
+  color: #999;
+
+  font-size: 0.7rem;
+}
+
+/* =========================================================
+   SOLICITUD — TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .solicitud-layout {
+    grid-template-columns: 1fr;
+
+    gap: 45px;
+  }
+
+  .solicitud-perro {
+    position: relative;
+    top: auto;
+
+    display: grid;
+    grid-template-columns: 180px 1fr;
+  }
+
+  .solicitud-perro > img {
+    height: 100%;
+    min-height: 200px;
+  }
+
+  .solicitud-aviso {
+    grid-column: 1 / -1;
+  }
+}
+
+/* =========================================================
+   SOLICITUD — MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+  .solicitud-page {
+    padding:
+      25px
+      18px
+      80px;
+  }
+
+  .solicitud-volver {
+    margin-bottom: 25px;
+  }
+
+  .solicitud-layout {
+    gap: 35px;
+  }
+
+  .solicitud-perro {
+    display: block;
+
+    border-radius: 16px;
+  }
+
+  .solicitud-perro > img {
+    height: 250px;
+  }
+
+  .solicitud-perro-info {
+    padding: 20px;
+  }
+
+  .solicitud-header {
+    margin-bottom: 35px;
+  }
+
+  .solicitud-header h1 {
+    font-size: 2.5rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-full {
+    grid-column: auto;
+  }
+
+  .adopcion-form fieldset {
+    margin-bottom: 32px;
+    padding-bottom: 32px;
+  }
+
+  .confirmacion-card {
+    padding: 35px 22px;
+  }
+
+  .confirmacion-card h1 {
+    font-size: 2.2rem;
+  }
+}
+
+/* =========================================================
+   ADMIN — USUARIO Y CERRAR SESIÓN
+   ========================================================= */
+
+.admin-user {
+  margin-bottom: 18px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.admin-user small {
+  color: #aaa;
+
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.admin-user span {
+  overflow: hidden;
+
+  color: #666;
+
+  font-size: 0.75rem;
+  font-weight: 600;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-public-link {
+  display: block;
+
+  color: #777;
+
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.admin-logout {
+  margin-top: 13px;
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  color: var(--bordo);
+
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.admin-logout:hover {
+  text-decoration: underline;
+}
+
+.admin-logout:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+
+/* =========================================================
+   ACCESO ADMIN DESDE FOOTER
+   ========================================================= */
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.footer-admin-icon {
+  width: 30px;
+  height: 30px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  color: rgba(255, 255, 255, 0.4);
+
+  font-size: 1rem;
+  line-height: 1;
+
+  opacity: 0.65;
+
+  transition:
+    opacity 0.2s ease,
+    background 0.2s ease,
+    transform 0.25s ease;
+}
+
+.footer-admin-icon:hover {
+  color: #fff;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  opacity: 1;
+
+  transform: rotate(35deg);
+}
+
+@media (max-width: 600px) {
+  .footer-bottom {
+    gap: 8px;
+  }
+
+  .footer-admin-icon {
+    width: 28px;
+    height: 28px;
+
+    font-size: 0.9rem;
+  }
+}
+
+/* =========================================================
+   ADMIN LOGIN
+   ========================================================= */
+
+.admin-login-page {
+  min-height: 100vh;
+  padding: 40px 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(140, 23, 56, 0.08),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 85% 80%,
+      rgba(140, 23, 56, 0.06),
+      transparent 32%
+    ),
+    var(--crema);
+}
+
+.admin-login-card {
+  position: relative;
+
+  width: 100%;
+  max-width: 460px;
+
+  padding: 48px 45px 42px;
+
+  overflow: hidden;
+
+  background: #fff;
+  border: 1px solid #ebe6e2;
+  border-radius: 24px;
+
+  box-shadow: 0 25px 70px rgba(55, 35, 35, 0.08);
+}
+
+.admin-login-card::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 5px;
+
+  background: var(--bordo);
+}
+
+.admin-login-card > img {
+  display: block;
+
+  width: 190px;
+  max-width: 70%;
+  height: auto;
+
+  margin: 0 auto 35px;
+}
+
+.admin-login-card .admin-eyebrow {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: var(--bordo);
+
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.admin-login-card h1 {
+  margin: 0;
+
+  color: var(--texto);
+
+  font-family: "Playfair Display", serif;
+  font-size: 2.8rem;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.admin-login-card > p {
+  max-width: 330px;
+
+  margin: 13px auto 32px;
+
+  color: #777;
+
+  font-size: 0.9rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.admin-login-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 19px;
+}
+
+.admin-login-card form label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  color: #555;
+
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.admin-login-card input {
+  width: 100%;
+  min-height: 52px;
+
+  padding: 0 16px;
+
+  border: 1px solid #dedad7;
+  border-radius: 11px;
+
+  outline: none;
+
+  background: #fff;
+
+  color: var(--texto);
+
+  font-family: inherit;
+  font-size: 0.9rem;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.admin-login-card input::placeholder {
+  color: #aaa;
+}
+
+.admin-login-card input:hover {
+  border-color: #c9c3bf;
+}
+
+.admin-login-card input:focus {
+  border-color: var(--bordo);
+  box-shadow: 0 0 0 3px rgba(140, 23, 56, 0.08);
+}
+
+.admin-login-error {
+  padding: 13px 15px;
+
+  background: #fff2f3;
+
+  border: 1px solid #f2d8dd;
+  border-radius: 10px;
+
+  color: #9b2945;
+
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.admin-login-card .admin-primary-button {
+  width: 100%;
+  min-height: 53px;
+
+  margin-top: 3px;
+
+  border: 0;
+  border-radius: 100px;
+
+  background: var(--bordo);
+
+  color: #fff;
+
+  font-size: 0.9rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.admin-login-card .admin-primary-button:hover:not(:disabled) {
+  background: var(--bordo-oscuro);
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 10px 25px rgba(140, 23, 56, 0.18);
+}
+
+.admin-login-card .admin-primary-button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.admin-login-back {
+  width: fit-content;
+
+  margin: 28px auto 0;
+
+  display: block;
+
+  color: #999;
+
+  font-size: 0.75rem;
+  font-weight: 600;
+
+  transition: color 0.2s ease;
+}
+
+.admin-login-back:hover {
+  color: var(--bordo);
+}
+
+.admin-auth-loading,
+.admin-login-loading {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  background: var(--crema);
+
+  color: #777;
+}
+
+.admin-auth-loading span {
+  font-size: 2.2rem;
+}
+
+.admin-auth-loading p {
+  color: #777;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 600px) {
+  .admin-login-page {
+    padding: 25px 17px;
+    align-items: flex-start;
+  }
+
+  .admin-login-card {
+    margin-top: 25px;
+    padding: 38px 23px 32px;
+    border-radius: 19px;
+  }
+
+  .admin-login-card > img {
+    width: 160px;
+    margin-bottom: 28px;
+  }
+
+  .admin-login-card h1 {
+    font-size: 2.35rem;
+  }
+
+  .admin-login-card > p {
+    margin-bottom: 27px;
+    font-size: 0.84rem;
+  }
+
+  .admin-login-card input {
+    min-height: 50px;
+  }
+
+  .admin-login-card .admin-primary-button {
+    min-height: 51px;
+  }
+}
+
+/* =========================================================
+   ADMIN — ESTADOS VACÍOS
+   ========================================================= */
+
+.admin-empty-state {
+  max-width: 700px;
+
+  margin: 70px auto;
+  padding: 60px 40px;
+
+  background: #fff;
+
+  border: 1px solid #e9e5e2;
+  border-radius: 20px;
+
+  text-align: center;
+}
+
+.admin-empty-icon {
+  width: 70px;
+  height: 70px;
+
+  margin: 0 auto 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--crema);
+
+  border-radius: 50%;
+
+  font-size: 2rem;
+}
+
+.admin-empty-state h2 {
+  margin: 8px 0 12px;
+
+  font-family: "Playfair Display", serif;
+  font-size: 2rem;
+}
+
+.admin-empty-state > p {
+  max-width: 480px;
+
+  margin: 0 auto;
+
+  color: #777;
+
+  line-height: 1.7;
+}
+
+.admin-empty-actions {
+  margin-top: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  gap: 12px;
+}
+
+.admin-no-results {
+  padding: 60px 20px;
+
+  text-align: center;
+
+  color: #777;
+}
+
+.admin-no-results > span {
+  display: block;
+
+  margin-bottom: 12px;
+
+  font-size: 2rem;
+}
+
+.admin-no-results h3 {
+  margin-bottom: 7px;
+
+  color: var(--texto);
+
+  font-family: "Playfair Display", serif;
+  font-size: 1.5rem;
+}
+
+.admin-no-results button {
+  margin-top: 18px;
+
+  border: 0;
+  background: transparent;
+
+  color: var(--bordo);
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.admin-dog-placeholder {
+  width: 58px;
+  height: 58px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  background: var(--crema);
+
+  border-radius: 10px;
+
+  font-size: 1.3rem;
+}
+
+@media (max-width: 600px) {
+  .admin-empty-state {
+    margin: 35px 0;
+    padding: 40px 20px;
+  }
+
+  .admin-empty-state h2 {
+    font-size: 1.7rem;
+  }
+
+  .admin-empty-actions {
+    flex-direction: column;
+  }
+
+  .admin-empty-actions > * {
+    width: 100%;
+  }
+}
+/* =========================================================
+   ADMIN — EDITAR / BORRAR
+   ========================================================= */
+
+.admin-row-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+.admin-edit-button,
+.admin-delete-button {
+  border: 0;
+  background: transparent;
+
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  text-decoration: none;
+}
+
+.admin-edit-button {
+  color: var(--bordo);
+}
+
+.admin-delete-button {
+  padding: 0;
+
+  color: #999;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.admin-delete-button:hover {
+  color: #c62828;
+}
+
+.admin-delete-button:active {
+  transform: scale(0.96);
+}
+
+@media (max-width: 700px) {
+  .admin-row-actions {
+    justify-content: flex-start;
+    gap: 20px;
+  }
+}
+
+/* =========================================================
+   FOTO PELUDITO — LISTADO ADMIN
+   ========================================================= */
+
+.admin-dog-photo {
+  width: 58px;
+  height: 58px;
+
+  flex-shrink: 0;
+
+  display: block;
+
+  object-fit: cover;
+  object-position: center;
+
+  border-radius: 10px;
+}
+
+/* =========================================================
+   ADMIN — ESTADO DE PUBLICACIÓN
+   ========================================================= */
+
+.admin-publication-status {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  min-width: 145px;
+  gap: 3px;
+}
+
+.admin-published,
+.admin-unpublished {
+  font-size: 0.76rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.admin-published {
+  color: #3f8558;
+}
+
+.admin-unpublished {
+  color: #8a8a8a;
+}
+
+.admin-publication-status small {
+  max-width: 145px;
+
+  color: #999;
+
+  font-size: 0.65rem;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+  .admin-publication-status {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .admin-publication-status small {
+    max-width: none;
+  }
+}
+
+/* =========================================================
+   ADMIN — VISIBILIDAD DEL PELUDITO
+   ========================================================= */
+
+.admin-visibility-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.admin-visibility-options .admin-publish-toggle {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: center;
+
+  gap: 14px;
+
+  padding: 20px;
+
+  background: #fff;
+
+  border: 1px solid #e6e0dc;
+  border-radius: 16px;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.admin-visibility-options .admin-publish-toggle:hover {
+  border-color: #b8aaa3;
+
+  box-shadow:
+    0 8px 22px rgba(0, 0, 0, 0.05);
+}
+
+.admin-visibility-options
+  .admin-publish-toggle
+  input {
+  width: 18px;
+  height: 18px;
+
+  margin: 0;
+
+  accent-color: #8c1738;
+}
+
+.admin-visibility-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+
+  background: #f8f3f1;
+  border-radius: 12px;
+
+  font-size: 1.2rem;
+}
+
+.admin-visibility-options
+  .admin-publish-toggle
+  strong {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #292525;
+
+  font-size: 0.95rem;
+}
+
+.admin-visibility-options
+  .admin-publish-toggle
+  small {
+  display: block;
+
+  color: #817a76;
+
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 700px) {
+  .admin-visibility-options {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-visibility-options
+    .admin-publish-toggle {
+    grid-template-columns: auto auto 1fr;
+
+    padding: 16px;
   }
 }

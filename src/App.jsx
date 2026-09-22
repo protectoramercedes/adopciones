@@ -1,7 +1,13 @@
-import { Route, Routes } from "react-router-dom";
+import {
+  Route,
+  Routes,
+} from "react-router-dom";
 
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
+import AdminLayout from "./components/AdminLayout.jsx";
+import AdminProtectedRoute from "./components/AdminProtectedRoute.jsx";
+import ScrollToTop from "./components/ScrollToTop.jsx";
 
 import Home from "./pages/Home.jsx";
 import Adopciones from "./pages/Adopciones.jsx";
@@ -11,50 +17,48 @@ import Apadrinar from "./pages/Apadrinar.jsx";
 import Donar from "./pages/Donar.jsx";
 import FinalesFelices from "./pages/FinalesFelices.jsx";
 
-const App = () => {
+import AdminLogin from "./pages/admin/AdminLogin.jsx";
+import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
+import AdminPeluditos from "./pages/admin/AdminPeluditos.jsx";
+import AdminPeluditoForm from "./pages/admin/AdminPeluditoForm.jsx";
+
+const PublicLayout = () => {
   return (
-    <div className="app">
+    <>
       <Header />
 
       <main>
         <Routes>
-          {/* INICIO */}
           <Route
             path="/"
             element={<Home />}
           />
 
-          {/* CATÁLOGO DE ADOPCIONES */}
           <Route
             path="/adopciones"
             element={<Adopciones />}
           />
 
-          {/* FICHA INDIVIDUAL DEL PELUDITO */}
           <Route
             path="/adopciones/:id"
             element={<PeluditoDetalle />}
           />
 
-          {/* FORMULARIO DE ADOPCIÓN */}
           <Route
             path="/adoptar/:id"
             element={<SolicitudAdopcion />}
           />
 
-          {/* MADRINAS Y PADRINOS */}
           <Route
             path="/apadrinar"
             element={<Apadrinar />}
           />
 
-          {/* DONACIONES */}
           <Route
             path="/donar"
             element={<Donar />}
           />
 
-          {/* FINALES FELICES */}
           <Route
             path="/finales-felices"
             element={<FinalesFelices />}
@@ -63,7 +67,59 @@ const App = () => {
       </main>
 
       <Footer />
-    </div>
+    </>
+  );
+};
+
+const App = () => {
+  return (
+    <>
+      <ScrollToTop />
+
+      <Routes>
+        {/* LOGIN ADMIN */}
+        <Route
+          path="/admin/login"
+          element={<AdminLogin />}
+        />
+
+        {/* ADMIN PROTEGIDO */}
+        <Route
+          element={<AdminProtectedRoute />}
+        >
+          <Route
+            path="/admin"
+            element={<AdminLayout />}
+          >
+            <Route
+              index
+              element={<AdminDashboard />}
+            />
+
+            <Route
+              path="peluditos"
+              element={<AdminPeluditos />}
+            />
+
+            <Route
+              path="peluditos/nuevo"
+              element={<AdminPeluditoForm />}
+            />
+
+            <Route
+              path="peluditos/:id/editar"
+              element={<AdminPeluditoForm />}
+            />
+          </Route>
+        </Route>
+
+        {/* WEB PÚBLICA */}
+        <Route
+          path="/*"
+          element={<PublicLayout />}
+        />
+      </Routes>
+    </>
   );
 };
 

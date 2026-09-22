@@ -26,7 +26,7 @@ const Footer = () => {
           </Link>
 
           <Link to="/apadrinar">
-            Apadrinar
+            Apadrinar / Amadrinar
           </Link>
 
           <Link to="/donar">
@@ -44,7 +44,18 @@ const Footer = () => {
       </div>
 
       <div className="footer-bottom">
-        © {new Date().getFullYear()} Protectora San Francisco de Asís
+        <span>
+          © {new Date().getFullYear()} Protectora San Francisco de Asís
+        </span>
+
+        <Link
+          to="/admin"
+          className="footer-admin-icon"
+          title="Administración"
+          aria-label="Administración"
+        >
+          ⚙
+        </Link>
       </div>
     </footer>
   );

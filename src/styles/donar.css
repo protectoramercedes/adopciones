@@ -1,0 +1,393 @@
+/* ========================================
+   DONAR
+======================================== */
+
+.donar-page {
+  min-height: 100vh;
+  background: #f8f6f3;
+}
+
+.donar-hero {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 90px 24px 55px;
+  text-align: center;
+}
+
+.donar-eyebrow {
+  display: inline-block;
+  margin-bottom: 18px;
+  color: #a5163d;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+.donar-hero h1 {
+  margin: 0;
+  color: #222;
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2.7rem, 6vw, 5rem);
+  line-height: 1.05;
+}
+
+.donar-hero h1 span {
+  color: #a5163d;
+}
+
+.donar-hero p {
+  max-width: 650px;
+  margin: 25px auto 0;
+  color: #777;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.donar-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px 90px;
+}
+
+
+/* ========================================
+   COLABORACIÓN MENSUAL
+======================================== */
+
+.donar-mensual-card {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 35px;
+  align-items: center;
+
+  padding: 45px;
+
+  background: #fff;
+  border: 1px solid #ebe5e2;
+  border-radius: 24px;
+
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.05);
+}
+
+.donar-mensual-icon {
+  display: grid;
+  place-items: center;
+
+  width: 110px;
+  height: 110px;
+
+  background: #f8edf1;
+  border-radius: 50%;
+
+  font-size: 3rem;
+}
+
+.donar-card-label {
+  display: block;
+  margin-bottom: 9px;
+
+  color: #a5163d;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+}
+
+.donar-mensual-info h2 {
+  margin: 0 0 13px;
+
+  color: #222;
+  font-family: "Playfair Display", serif;
+  font-size: 2.1rem;
+}
+
+.donar-mensual-info p {
+  max-width: 650px;
+  margin: 0 0 24px;
+
+  color: #777;
+  line-height: 1.7;
+}
+
+.donar-primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 15px 24px;
+
+  background: #a5163d;
+  color: #fff;
+
+  border-radius: 999px;
+
+  text-decoration: none;
+  font-weight: 700;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.donar-primary-button:hover {
+  background: #85102f;
+  transform: translateY(-2px);
+}
+
+.donar-mensual-info small {
+  display: block;
+  margin-top: 13px;
+  color: #999;
+}
+
+
+/* ========================================
+   TÍTULOS DE SECCIÓN
+======================================== */
+
+.donar-section-heading {
+  margin: 75px 0 30px;
+  text-align: center;
+}
+
+.donar-section-heading > span {
+  color: #a5163d;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.donar-section-heading h2 {
+  margin: 10px 0;
+
+  color: #222;
+  font-family: "Playfair Display", serif;
+  font-size: 2.2rem;
+}
+
+.donar-section-heading p {
+  margin: 0;
+  color: #777;
+}
+
+
+/* ========================================
+   MONTOS
+======================================== */
+
+.donar-montos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.donar-monto-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 30px 15px;
+
+  background: #fff;
+  border: 1px solid #e8e1de;
+  border-radius: 18px;
+
+  color: #222;
+  text-decoration: none;
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.donar-monto-card:hover {
+  transform: translateY(-5px);
+  border-color: #a5163d;
+
+  box-shadow:
+    0 14px 35px rgba(0, 0, 0, 0.07);
+}
+
+.donar-monto-card > span {
+  margin-bottom: 8px;
+  font-size: 1.5rem;
+}
+
+.donar-monto-card strong {
+  color: #a5163d;
+  font-size: 1.8rem;
+}
+
+.donar-monto-card small {
+  margin-top: 5px;
+  color: #888;
+}
+
+
+/* ========================================
+   TRANSFERENCIA / ABITAB
+======================================== */
+
+.donar-otras-heading {
+  margin-top: 80px;
+}
+
+.donar-alternativas {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.donar-alternativa-card {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+
+  padding: 30px;
+
+  background: #fff;
+  border: 1px solid #e8e1de;
+  border-radius: 18px;
+}
+
+.donar-alternativa-icon {
+  display: grid;
+  place-items: center;
+
+  flex: 0 0 55px;
+  width: 55px;
+  height: 55px;
+
+  background: #f7f1ee;
+  border-radius: 14px;
+
+  font-size: 1.5rem;
+}
+
+.donar-alternativa-card h3 {
+  margin: 2px 0 8px;
+  color: #222;
+  font-size: 1.3rem;
+}
+
+.donar-alternativa-card p {
+  margin: 0 0 8px;
+  color: #777;
+  line-height: 1.5;
+}
+
+.donar-alternativa-card strong {
+  display: block;
+  color: #222;
+  font-size: 1.15rem;
+}
+
+.donar-account-secondary {
+  display: block;
+  margin-top: 4px;
+  color: #777;
+}
+
+
+/* ========================================
+   CIERRE
+======================================== */
+
+.donar-cierre {
+  margin-top: 75px;
+  padding: 55px 25px;
+
+  background: #a5163d;
+  border-radius: 24px;
+
+  color: #fff;
+  text-align: center;
+}
+
+.donar-cierre > span {
+  font-size: 2.2rem;
+}
+
+.donar-cierre h2 {
+  margin: 15px 0;
+
+  font-family: "Playfair Display", serif;
+  font-size: 2.4rem;
+  line-height: 1.2;
+}
+
+.donar-cierre p {
+  max-width: 600px;
+  margin: 0 auto;
+
+  opacity: 0.9;
+  line-height: 1.7;
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 768px) {
+  .donar-hero {
+    padding: 60px 20px 40px;
+  }
+
+  .donar-mensual-card {
+    grid-template-columns: 1fr;
+    padding: 30px 22px;
+    text-align: center;
+  }
+
+  .donar-mensual-icon {
+    margin: 0 auto;
+  }
+
+  .donar-mensual-info p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .donar-primary-button {
+    width: 100%;
+  }
+
+  .donar-montos {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .donar-alternativas {
+    grid-template-columns: 1fr;
+  }
+
+  .donar-section-heading {
+    margin-top: 55px;
+  }
+
+  .donar-cierre {
+    margin-top: 55px;
+    padding: 40px 20px;
+  }
+
+  .donar-cierre h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 430px) {
+  .donar-montos {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .donar-monto-card {
+    padding: 24px 10px;
+  }
+
+  .donar-alternativa-card {
+    padding: 22px;
+  }
+}
