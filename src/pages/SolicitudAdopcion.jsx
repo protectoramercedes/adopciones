@@ -1,49 +1,177 @@
-import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import {
+  useEffect,
+  useState,
+} from "react";
 
-import perros from "../data/perros.js";
+import {
+  Link,
+  useParams,
+} from "react-router-dom";
+
+import { supabase } from "../lib/supabase.js";
 
 const SolicitudAdopcion = () => {
   const { id } = useParams();
 
-  const perro = perros.find(
-    (item) => item.id === id
-  );
+  const [perro, setPerro] =
+    useState(null);
 
-  const [enviado, setEnviado] = useState(false);
+  const [cargando, setCargando] =
+    useState(true);
 
-  const [formulario, setFormulario] = useState({
-    nombre: "",
-    apellido: "",
-    telefono: "",
-    email: "",
-    localidad: "",
-    vivienda: "",
-    viviendaPropia: "",
-    patio: "",
-    patioCerrado: "",
-    personasHogar: "",
-    ninos: "",
-    otrosAnimales: "",
-    detalleAnimales: "",
-    horasSolo: "",
-    experiencia: "",
-    motivo: "",
-    compromiso: false,
-  });
+  const [errorCarga, setErrorCarga] =
+    useState("");
+
+  const [enviado, setEnviado] =
+    useState(false);
+
+  const [formulario, setFormulario] =
+    useState({
+      nombre: "",
+      apellido: "",
+      telefono: "",
+      email: "",
+      localidad: "",
+      vivienda: "",
+      viviendaPropia: "",
+      patio: "",
+      patioCerrado: "",
+      personasHogar: "",
+      ninos: "",
+      otrosAnimales: "",
+      detalleAnimales: "",
+      horasSolo: "",
+      experiencia: "",
+      motivo: "",
+      compromiso: false,
+    });
+
+  /* =========================================
+     CARGAR PELUDITO DESDE SUPABASE
+     ========================================= */
+
+  useEffect(() => {
+    let activo = true;
+
+    const cargarPeludito = async () => {
+      try {
+        setCargando(true);
+        setErrorCarga("");
+
+        const {
+          data,
+          error,
+        } = await supabase
+          .from("peluditos")
+          .select(`
+            *,
+            peludito_fotos (
+              id,
+              url,
+              principal,
+              orden
+            )
+          `)
+          .eq("id", id)
+          .single();
+
+        if (error) {
+          throw error;
+        }
+
+        if (!activo) {
+          return;
+        }
+
+        const fotos =
+          data?.peludito_fotos || [];
+
+        const fotoPrincipal =
+          fotos.find(
+            (foto) => foto.principal
+          ) ||
+          [...fotos].sort(
+            (a, b) =>
+              (a.orden ?? 0) -
+              (b.orden ?? 0)
+          )[0];
+
+        const peluditoPreparado = {
+          ...data,
+
+          imagen:
+            fotoPrincipal?.url ||
+            "/placeholder-peludito.png",
+
+          aptoPerros:
+            data.apto_perros,
+
+          aptoGatos:
+            data.apto_gatos,
+
+          aptoNinos:
+            data.apto_ninos,
+        };
+
+        setPerro(
+          peluditoPreparado
+        );
+      } catch (error) {
+        console.error(
+          "Error cargando peludito:",
+          error
+        );
+
+        if (!activo) {
+          return;
+        }
+
+        setPerro(null);
+
+        setErrorCarga(
+          "No pudimos cargar este peludito."
+        );
+      } finally {
+        if (activo) {
+          setCargando(false);
+        }
+      }
+    };
+
+    cargarPeludito();
+
+    return () => {
+      activo = false;
+    };
+  }, [id]);
+
+  /* =========================================
+     FORMULARIO
+     ========================================= */
 
   const manejarCambio = (e) => {
-    const { name, value, type, checked } =
-      e.target;
+    const {
+      name,
+      value,
+      type,
+      checked,
+    } = e.target;
 
     setFormulario((anterior) => ({
       ...anterior,
+
       [name]:
         type === "checkbox"
           ? checked
           : value,
     }));
   };
+
+  /* =========================================
+     ENVIAR SOLICITUD
+     Por ahora conserva el comportamiento
+     actual. Después lo conectamos a Supabase.
+     ========================================= */
 
   const manejarEnvio = (e) => {
     e.preventDefault();
@@ -62,25 +190,69 @@ const SolicitudAdopcion = () => {
     });
   };
 
-  if (!perro) {
+  /* =========================================
+     CARGANDO
+     ========================================= */
+
+  if (cargando) {
     return (
       <section className="page-container">
-        <h1>Peludito no encontrado 🐾</h1>
+        <div className="peludito-no-encontrado">
+          <span>🐾</span>
 
-        <Link
-          to="/adopciones"
-          className="btn btn-primary"
-        >
-          Volver a adopciones
-        </Link>
+          <h1>
+            Cargando peludito...
+          </h1>
+
+          <p>
+            Estamos preparando la solicitud
+            de adopción.
+          </p>
+        </div>
       </section>
     );
   }
 
+  /* =========================================
+     NO ENCONTRADO
+     ========================================= */
+
+  if (!perro) {
+    return (
+      <section className="page-container">
+        <div className="peludito-no-encontrado">
+          <span>🐾</span>
+
+          <h1>
+            Peludito no encontrado
+          </h1>
+
+          <p>
+            {errorCarga ||
+              "No pudimos encontrar la historia que estabas buscando."}
+          </p>
+
+          <Link
+            to="/adopciones"
+            className="btn btn-primary"
+          >
+            Volver a adopciones
+          </Link>
+        </div>
+      </section>
+    );
+  }
+
+  /* =========================================
+     SOLICITUD ENVIADA
+     ========================================= */
+
   if (enviado) {
     return (
       <section className="solicitud-confirmacion">
+
         <div className="confirmacion-card">
+
           <span className="confirmacion-icono">
             ❤️
           </span>
@@ -103,6 +275,7 @@ const SolicitudAdopcion = () => {
           </p>
 
           <div className="confirmacion-perro">
+
             <img
               src={perro.imagen}
               alt={perro.nombre}
@@ -118,9 +291,13 @@ const SolicitudAdopcion = () => {
               </strong>
 
               <span>
-                {perro.id.toUpperCase()}
+                {perro.codigo ||
+                  perro.id
+                    .slice(0, 8)
+                    .toUpperCase()}
               </span>
             </div>
+
           </div>
 
           <Link
@@ -129,52 +306,84 @@ const SolicitudAdopcion = () => {
           >
             Conocer más peluditos
           </Link>
+
         </div>
+
       </section>
     );
   }
+
+  /* =========================================
+     PÁGINA
+     ========================================= */
 
   return (
     <main className="solicitud-page">
 
       <div className="solicitud-volver">
+
         <Link
           to={`/adopciones/${perro.id}`}
         >
           ← Volver a {perro.nombre}
         </Link>
+
       </div>
 
       <div className="solicitud-layout">
 
+        {/* =====================================
+            PELUDITO
+            ===================================== */}
+
         <aside className="solicitud-perro">
+
           <img
             src={perro.imagen}
             alt={perro.nombre}
           />
 
           <div className="solicitud-perro-info">
+
             <span>
               QUIERO ADOPTAR A
             </span>
 
-            <h2>{perro.nombre}</h2>
+            <h2>
+              {perro.nombre}
+            </h2>
 
             <p>
-              {perro.edad}{" "}
-              {perro.edad === 1
-                ? "año"
-                : "años"}{" "}
-              · {perro.sexo} ·{" "}
-              {perro.tamano}
+              {perro.edad != null
+                ? `${perro.edad} ${
+                    Number(perro.edad) === 1
+                      ? "año"
+                      : "años"
+                  }`
+                : "Edad no especificada"}
+
+              {" · "}
+
+              {perro.sexo ||
+                "Sexo no especificado"}
+
+              {" · "}
+
+              {perro.tamano ||
+                "Tamaño no especificado"}
             </p>
 
             <small>
-              {perro.id.toUpperCase()}
+              {perro.codigo ||
+                perro.id
+                  .slice(0, 8)
+                  .toUpperCase()}
             </small>
+
           </div>
 
           <div className="solicitud-aviso">
+
             <span>🐾</span>
 
             <p>
@@ -182,25 +391,35 @@ const SolicitudAdopcion = () => {
               la vida. Este formulario nos ayuda
               a conocerte un poquito mejor.
             </p>
+
           </div>
+
         </aside>
+
+        {/* =====================================
+            FORMULARIO
+            ===================================== */}
 
         <div className="solicitud-contenido">
 
           <div className="solicitud-header">
+
             <span className="form-eyebrow">
               SOLICITUD DE ADOPCIÓN
             </span>
 
             <h1>
               ¿Querés compartir tu vida con{" "}
-              <span>{perro.nombre}?</span>
+              <span>
+                {perro.nombre}?
+              </span>
             </h1>
 
             <p>
               Contanos un poco sobre vos y el
               hogar que podría recibirlo.
             </p>
+
           </div>
 
           <form
@@ -208,76 +427,114 @@ const SolicitudAdopcion = () => {
             onSubmit={manejarEnvio}
           >
 
+            {/* ===============================
+                1 - SOBRE VOS
+                =============================== */}
+
             <fieldset>
+
               <legend>
                 <span>1</span>
                 Sobre vos
               </legend>
 
               <div className="form-grid">
+
                 <label>
                   Nombre *
+
                   <input
                     required
                     type="text"
                     name="nombre"
-                    value={formulario.nombre}
-                    onChange={manejarCambio}
+                    value={
+                      formulario.nombre
+                    }
+                    onChange={
+                      manejarCambio
+                    }
                     placeholder="Tu nombre"
                   />
                 </label>
 
                 <label>
                   Apellido *
+
                   <input
                     required
                     type="text"
                     name="apellido"
-                    value={formulario.apellido}
-                    onChange={manejarCambio}
+                    value={
+                      formulario.apellido
+                    }
+                    onChange={
+                      manejarCambio
+                    }
                     placeholder="Tu apellido"
                   />
                 </label>
 
                 <label>
                   Teléfono *
+
                   <input
                     required
                     type="tel"
                     name="telefono"
-                    value={formulario.telefono}
-                    onChange={manejarCambio}
+                    value={
+                      formulario.telefono
+                    }
+                    onChange={
+                      manejarCambio
+                    }
                     placeholder="Ej: 099 123 456"
                   />
                 </label>
 
                 <label>
                   Email *
+
                   <input
                     required
                     type="email"
                     name="email"
-                    value={formulario.email}
-                    onChange={manejarCambio}
+                    value={
+                      formulario.email
+                    }
+                    onChange={
+                      manejarCambio
+                    }
                     placeholder="tu@email.com"
                   />
                 </label>
 
                 <label className="form-full">
                   Localidad *
+
                   <input
                     required
                     type="text"
                     name="localidad"
-                    value={formulario.localidad}
-                    onChange={manejarCambio}
+                    value={
+                      formulario.localidad
+                    }
+                    onChange={
+                      manejarCambio
+                    }
                     placeholder="Ej: Mercedes, Soriano"
                   />
                 </label>
+
               </div>
+
             </fieldset>
 
+            {/* ===============================
+                2 - TU HOGAR
+                =============================== */}
+
             <fieldset>
+
               <legend>
                 <span>2</span>
                 Tu hogar
@@ -287,11 +544,16 @@ const SolicitudAdopcion = () => {
 
                 <label>
                   ¿Dónde vivís? *
+
                   <select
                     required
                     name="vivienda"
-                    value={formulario.vivienda}
-                    onChange={manejarCambio}
+                    value={
+                      formulario.vivienda
+                    }
+                    onChange={
+                      manejarCambio
+                    }
                   >
                     <option value="">
                       Seleccionar
@@ -313,13 +575,16 @@ const SolicitudAdopcion = () => {
 
                 <label>
                   ¿La vivienda es propia? *
+
                   <select
                     required
                     name="viviendaPropia"
                     value={
                       formulario.viviendaPropia
                     }
-                    onChange={manejarCambio}
+                    onChange={
+                      manejarCambio
+                    }
                   >
                     <option value="">
                       Seleccionar
@@ -337,11 +602,16 @@ const SolicitudAdopcion = () => {
 
                 <label>
                   ¿Tenés patio? *
+
                   <select
                     required
                     name="patio"
-                    value={formulario.patio}
-                    onChange={manejarCambio}
+                    value={
+                      formulario.patio
+                    }
+                    onChange={
+                      manejarCambio
+                    }
                   >
                     <option value="">
                       Seleccionar
@@ -359,12 +629,15 @@ const SolicitudAdopcion = () => {
 
                 <label>
                   ¿El patio está cerrado?
+
                   <select
                     name="patioCerrado"
                     value={
                       formulario.patioCerrado
                     }
-                    onChange={manejarCambio}
+                    onChange={
+                      manejarCambio
+                    }
                   >
                     <option value="">
                       Seleccionar
@@ -386,6 +659,7 @@ const SolicitudAdopcion = () => {
 
                 <label>
                   Personas en el hogar *
+
                   <input
                     required
                     type="number"
@@ -394,18 +668,25 @@ const SolicitudAdopcion = () => {
                     value={
                       formulario.personasHogar
                     }
-                    onChange={manejarCambio}
+                    onChange={
+                      manejarCambio
+                    }
                     placeholder="Ej: 3"
                   />
                 </label>
 
                 <label>
                   ¿Hay niños en el hogar? *
+
                   <select
                     required
                     name="ninos"
-                    value={formulario.ninos}
-                    onChange={manejarCambio}
+                    value={
+                      formulario.ninos
+                    }
+                    onChange={
+                      manejarCambio
+                    }
                   >
                     <option value="">
                       Seleccionar
@@ -422,9 +703,15 @@ const SolicitudAdopcion = () => {
                 </label>
 
               </div>
+
             </fieldset>
 
+            {/* ===============================
+                3 - OTROS ANIMALES
+                =============================== */}
+
             <fieldset>
+
               <legend>
                 <span>3</span>
                 Otros animales
@@ -434,13 +721,16 @@ const SolicitudAdopcion = () => {
 
                 <label>
                   ¿Tenés otros animales? *
+
                   <select
                     required
                     name="otrosAnimales"
                     value={
                       formulario.otrosAnimales
                     }
-                    onChange={manejarCambio}
+                    onChange={
+                      manejarCambio
+                    }
                   >
                     <option value="">
                       Seleccionar
@@ -458,12 +748,15 @@ const SolicitudAdopcion = () => {
 
                 <label>
                   ¿Cuántas horas estaría solo?
+
                   <select
                     name="horasSolo"
                     value={
                       formulario.horasSolo
                     }
-                    onChange={manejarCambio}
+                    onChange={
+                      manejarCambio
+                    }
                   >
                     <option value="">
                       Seleccionar
@@ -490,22 +783,33 @@ const SolicitudAdopcion = () => {
                 {formulario.otrosAnimales ===
                   "Sí" && (
                   <label className="form-full">
+
                     Contanos sobre ellos
+
                     <textarea
                       name="detalleAnimales"
                       value={
                         formulario.detalleAnimales
                       }
-                      onChange={manejarCambio}
+                      onChange={
+                        manejarCambio
+                      }
                       placeholder="Qué animales tenés, edades, sexo..."
                     />
+
                   </label>
                 )}
 
               </div>
+
             </fieldset>
 
+            {/* ===============================
+                4 - LA ADOPCIÓN
+                =============================== */}
+
             <fieldset>
+
               <legend>
                 <span>4</span>
                 La adopción
@@ -514,33 +818,53 @@ const SolicitudAdopcion = () => {
               <div className="form-grid">
 
                 <label className="form-full">
+
                   ¿Tuviste perros anteriormente?
+
                   <textarea
                     name="experiencia"
                     value={
                       formulario.experiencia
                     }
-                    onChange={manejarCambio}
+                    onChange={
+                      manejarCambio
+                    }
                     placeholder="Contanos brevemente tu experiencia..."
                   />
+
                 </label>
 
                 <label className="form-full">
+
                   ¿Por qué querés adoptar a{" "}
                   {perro.nombre}? *
+
                   <textarea
                     required
                     name="motivo"
-                    value={formulario.motivo}
-                    onChange={manejarCambio}
-                    placeholder={`Contanos qué te hizo elegir a ${perro.nombre}...`}
+                    value={
+                      formulario.motivo
+                    }
+                    onChange={
+                      manejarCambio
+                    }
+                    placeholder={
+                      `Contanos qué te hizo elegir a ${perro.nombre}...`
+                    }
                   />
+
                 </label>
 
               </div>
+
             </fieldset>
 
+            {/* ===============================
+                COMPROMISO
+                =============================== */}
+
             <label className="compromiso-check">
+
               <input
                 required
                 type="checkbox"
@@ -548,7 +872,9 @@ const SolicitudAdopcion = () => {
                 checked={
                   formulario.compromiso
                 }
-                onChange={manejarCambio}
+                onChange={
+                  manejarCambio
+                }
               />
 
               <span>
@@ -559,7 +885,12 @@ const SolicitudAdopcion = () => {
                 siempre el bienestar del
                 animal.
               </span>
+
             </label>
+
+            {/* ===============================
+                ENVIAR
+                =============================== */}
 
             <button
               type="submit"
@@ -570,8 +901,11 @@ const SolicitudAdopcion = () => {
             </button>
 
           </form>
+
         </div>
+
       </div>
+
     </main>
   );
 };

@@ -1,13 +1,25 @@
-import { useState } from "react";
+import {
+  useState,
+} from "react";
+
 import {
   Navigate,
   useNavigate,
 } from "react-router-dom";
 
-import { useAuth } from "../../context/AuthContext.jsx";
+import {
+  useAuth,
+} from "../../context/AuthContext.jsx";
+
+const ADMIN_USERNAME =
+  "protectoramercedes";
+
+const ADMIN_EMAIL =
+  import.meta.env.VITE_ADMIN_EMAIL;
 
 const AdminLogin = () => {
-  const navigate = useNavigate();
+  const navigate =
+    useNavigate();
 
   const {
     usuario,
@@ -15,17 +27,26 @@ const AdminLogin = () => {
     iniciarSesion,
   } = useAuth();
 
-  const [email, setEmail] =
+  const [username, setUsername] =
     useState("");
 
   const [password, setPassword] =
     useState("");
+
+  const [
+    mostrarPassword,
+    setMostrarPassword,
+  ] = useState(false);
 
   const [error, setError] =
     useState("");
 
   const [enviando, setEnviando] =
     useState(false);
+
+  /* =========================================
+     CARGANDO AUTH
+     ========================================= */
 
   if (cargandoAuth) {
     return (
@@ -34,6 +55,10 @@ const AdminLogin = () => {
       </div>
     );
   }
+
+  /* =========================================
+     YA ESTÁ LOGUEADO
+     ========================================= */
 
   if (usuario) {
     return (
@@ -44,35 +69,80 @@ const AdminLogin = () => {
     );
   }
 
+  /* =========================================
+     LOGIN
+     ========================================= */
+
   const manejarSubmit = async (e) => {
     e.preventDefault();
 
     try {
       setError("");
+
+      const usuarioIngresado =
+        username
+          .trim()
+          .toLowerCase();
+
+      if (
+        usuarioIngresado !==
+        ADMIN_USERNAME
+      ) {
+        setError(
+          "Usuario o contraseña incorrectos."
+        );
+
+        return;
+      }
+
+      if (!ADMIN_EMAIL) {
+        console.error(
+          "Falta VITE_ADMIN_EMAIL."
+        );
+
+        setError(
+          "No se pudo iniciar sesión. Revisá la configuración."
+        );
+
+        return;
+      }
+
       setEnviando(true);
 
       await iniciarSesion(
-        email,
+        ADMIN_EMAIL,
         password
       );
 
-      navigate("/admin", {
-        replace: true,
-      });
+      navigate(
+        "/admin",
+        {
+          replace: true,
+        }
+      );
     } catch (error) {
-      console.error(error);
+      console.error(
+        "Error iniciando sesión:",
+        error
+      );
 
       setError(
-        "Correo o contraseña incorrectos."
+        "Usuario o contraseña incorrectos."
       );
     } finally {
       setEnviando(false);
     }
   };
 
+  /* =========================================
+     RENDER
+     ========================================= */
+
   return (
     <main className="admin-login-page">
+
       <div className="admin-login-card">
+
         <img
           src="/logoprote.png"
           alt="Protectora San Francisco de Asís"
@@ -82,47 +152,99 @@ const AdminLogin = () => {
           ADMINISTRACIÓN
         </span>
 
-        <h1>Bienvenida</h1>
+        <h1>
+          Bienvenidas
+        </h1>
 
         <p>
           Ingresá para administrar los
           peluditos de la Protectora.
         </p>
 
-        <form onSubmit={manejarSubmit}>
+        <form
+          onSubmit={manejarSubmit}
+        >
+
+          {/* USUARIO */}
+
           <label>
-            Correo electrónico
+            Usuario
 
             <input
               required
-              type="email"
-              value={email}
+              type="text"
+              value={username}
               onChange={(e) =>
-                setEmail(e.target.value)
+                setUsername(
+                  e.target.value
+                )
               }
-              placeholder="correo@ejemplo.com"
+              placeholder="Usuario"
+              autoComplete="username"
             />
           </label>
+
+          {/* CONTRASEÑA */}
 
           <label>
             Contraseña
 
-            <input
-              required
-              type="password"
-              value={password}
-              onChange={(e) =>
-                setPassword(e.target.value)
-              }
-              placeholder="••••••••"
-            />
+            <div className="admin-password-field">
+
+              <input
+                required
+                type={
+                  mostrarPassword
+                    ? "text"
+                    : "password"
+                }
+                value={password}
+                onChange={(e) =>
+                  setPassword(
+                    e.target.value
+                  )
+                }
+                placeholder="••••••••"
+                autoComplete="current-password"
+              />
+
+              <button
+                type="button"
+                className="admin-password-toggle"
+                onClick={() =>
+                  setMostrarPassword(
+                    (actual) =>
+                      !actual
+                  )
+                }
+                aria-label={
+                  mostrarPassword
+                    ? "Ocultar contraseña"
+                    : "Mostrar contraseña"
+                }
+                title={
+                  mostrarPassword
+                    ? "Ocultar contraseña"
+                    : "Mostrar contraseña"
+                }
+              >
+                {mostrarPassword
+                  ? "🙈"
+                  : "👁️"}
+              </button>
+
+            </div>
           </label>
+
+          {/* ERROR */}
 
           {error && (
             <div className="admin-login-error">
               {error}
             </div>
           )}
+
+          {/* INGRESAR */}
 
           <button
             type="submit"
@@ -133,6 +255,7 @@ const AdminLogin = () => {
               ? "Ingresando..."
               : "Ingresar"}
           </button>
+
         </form>
 
         <a
@@ -141,7 +264,9 @@ const AdminLogin = () => {
         >
           ← Volver a la página
         </a>
+
       </div>
+
     </main>
   );
 };
