@@ -15,6 +15,11 @@ const AdminDashboard = () => {
   const [peluditos, setPeluditos] =
     useState([]);
 
+  const [
+    solicitudesPendientes,
+    setSolicitudesPendientes,
+  ] = useState(0);
+
   const [cargando, setCargando] =
     useState(true);
 
@@ -33,34 +38,80 @@ const AdminDashboard = () => {
         setCargando(true);
         setError("");
 
-        const {
-          data,
-          error: supabaseError,
-        } = await supabase
-          .from("peluditos")
-          .select(`
-            *,
-            peludito_fotos (
-              id,
-              url,
-              principal,
-              orden
-            )
-          `)
-          .order("created_at", {
-            ascending: false,
-          });
+        /* -----------------------------------------------
+           CARGAMOS PELUDITOS Y SOLICITUDES EN PARALELO
+           ----------------------------------------------- */
 
-        if (supabaseError) {
-          throw supabaseError;
+        const [
+          resultadoPeluditos,
+          resultadoSolicitudes,
+        ] = await Promise.all([
+          supabase
+            .from("peluditos")
+            .select(`
+              *,
+              peludito_fotos (
+                id,
+                url,
+                principal,
+                orden
+              )
+            `)
+            .order("created_at", {
+              ascending: false,
+            }),
+
+          supabase
+            .from("solicitudes_adopcion")
+            .select(
+              "id",
+              {
+                count: "exact",
+                head: true,
+              }
+            )
+            .eq(
+              "estado",
+              "Pendiente"
+            ),
+        ]);
+
+        /* -----------------------------------------------
+           ERRORES
+           ----------------------------------------------- */
+
+        if (
+          resultadoPeluditos.error
+        ) {
+          throw (
+            resultadoPeluditos.error
+          );
+        }
+
+        if (
+          resultadoSolicitudes.error
+        ) {
+          throw (
+            resultadoSolicitudes.error
+          );
         }
 
         if (!activo) {
           return;
         }
 
+        /* -----------------------------------------------
+           GUARDAMOS RESULTADOS
+           ----------------------------------------------- */
+
         setPeluditos(
-          data ?? []
+          resultadoPeluditos.data ??
+            []
+        );
+
+        setSolicitudesPendientes(
+          resultadoSolicitudes.count ??
+            0
         );
       } catch (error) {
         console.error(
@@ -154,9 +205,14 @@ const AdminDashboard = () => {
   return (
     <section className="admin-page">
 
+      {/* =================================================
+          HEADER
+          ================================================= */}
+
       <div className="admin-page-header">
 
         <div>
+
           <span className="admin-eyebrow">
             PANEL DE ADMINISTRACIÓN
           </span>
@@ -167,8 +223,10 @@ const AdminDashboard = () => {
 
           <p>
             Desde acá podés gestionar
-            los peluditos de la Protectora.
+            los peluditos y las solicitudes
+            de adopción de la Protectora.
           </p>
+
         </div>
 
         <Link
@@ -180,11 +238,12 @@ const AdminDashboard = () => {
 
       </div>
 
-      {/* ===============================================
+      {/* =================================================
           CARGANDO
-          =============================================== */}
+          ================================================= */}
 
       {cargando && (
+
         <div className="admin-empty-state">
 
           <div className="admin-empty-icon">
@@ -196,14 +255,16 @@ const AdminDashboard = () => {
           </h2>
 
         </div>
+
       )}
 
-      {/* ===============================================
+      {/* =================================================
           ERROR
-          =============================================== */}
+          ================================================= */}
 
       {!cargando &&
         error && (
+
           <div className="admin-empty-state">
 
             <div className="admin-empty-icon">
@@ -230,21 +291,24 @@ const AdminDashboard = () => {
             </button>
 
           </div>
+
         )}
 
-      {/* ===============================================
-          DASHBOARD REAL
-          =============================================== */}
+      {/* =================================================
+          DASHBOARD
+          ================================================= */}
 
       {!cargando &&
         !error && (
           <>
 
-            {/* =========================================
+            {/* =============================================
                 ESTADÍSTICAS
-                ========================================= */}
+                ============================================= */}
 
             <div className="admin-stats">
+
+              {/* TOTAL */}
 
               <div className="admin-stat">
 
@@ -253,6 +317,7 @@ const AdminDashboard = () => {
                 </span>
 
                 <div>
+
                   <strong>
                     {peluditos.length}
                   </strong>
@@ -260,9 +325,12 @@ const AdminDashboard = () => {
                   <p>
                     Peluditos registrados
                   </p>
+
                 </div>
 
               </div>
+
+              {/* EN ADOPCIÓN */}
 
               <div className="admin-stat">
 
@@ -271,6 +339,7 @@ const AdminDashboard = () => {
                 </span>
 
                 <div>
+
                   <strong>
                     {enAdopcion}
                   </strong>
@@ -278,9 +347,12 @@ const AdminDashboard = () => {
                   <p>
                     En adopción
                   </p>
+
                 </div>
 
               </div>
+
+              {/* ADOPTADOS */}
 
               <div className="admin-stat">
 
@@ -289,6 +361,7 @@ const AdminDashboard = () => {
                 </span>
 
                 <div>
+
                   <strong>
                     {adoptados}
                   </strong>
@@ -296,39 +369,100 @@ const AdminDashboard = () => {
                   <p>
                     Finales felices
                   </p>
+
                 </div>
 
               </div>
 
-              <div className="admin-stat">
+              {/* SOLICITUDES */}
+
+              <Link
+                to="/admin/solicitudes"
+                className="admin-stat admin-stat-link"
+              >
 
                 <span>
                   📩
                 </span>
 
                 <div>
+
                   <strong>
-                    0
+                    {
+                      solicitudesPendientes
+                    }
                   </strong>
 
                   <p>
-                    Solicitudes pendientes
+                    {solicitudesPendientes ===
+                    1
+                      ? "Solicitud pendiente"
+                      : "Solicitudes pendientes"}
                   </p>
+
                 </div>
 
-              </div>
+                {solicitudesPendientes >
+                  0 && (
+                  <span className="admin-stat-arrow">
+                    →
+                  </span>
+                )}
+
+              </Link>
 
             </div>
 
-            {/* =========================================
-                RECIENTES
-                ========================================= */}
+            {/* =============================================
+                AVISO DE SOLICITUDES
+                ============================================= */}
+
+            {solicitudesPendientes >
+              0 && (
+
+              <Link
+                to="/admin/solicitudes"
+                className="admin-pending-notice"
+              >
+
+                <div className="admin-pending-notice-icon">
+                  📩
+                </div>
+
+                <div>
+
+                  <strong>
+                    {solicitudesPendientes ===
+                    1
+                      ? "Hay una nueva solicitud de adopción"
+                      : `Hay ${solicitudesPendientes} solicitudes de adopción pendientes`}
+                  </strong>
+
+                  <p>
+                    Revisá los datos de las
+                    personas interesadas.
+                  </p>
+
+                </div>
+
+                <span>
+                  Ver solicitudes →
+                </span>
+
+              </Link>
+
+            )}
+
+            {/* =============================================
+                PELUDITOS RECIENTES
+                ============================================= */}
 
             <div className="admin-dashboard-section">
 
               <div className="admin-section-heading">
 
                 <div>
+
                   <h2>
                     Peluditos recientes
                   </h2>
@@ -337,15 +471,19 @@ const AdminDashboard = () => {
                     Últimos animales registrados
                     en la plataforma.
                   </p>
+
                 </div>
 
-                <Link to="/admin/peluditos">
+                <Link
+                  to="/admin/peluditos"
+                >
                   Ver todos →
                 </Link>
 
               </div>
 
-              {recientes.length > 0 ? (
+              {recientes.length >
+              0 ? (
 
                 <div className="admin-recent-list">
 
@@ -365,6 +503,7 @@ const AdminDashboard = () => {
                         >
 
                           {foto ? (
+
                             <img
                               src={foto}
                               alt={
@@ -372,16 +511,21 @@ const AdminDashboard = () => {
                               }
                               loading="lazy"
                             />
+
                           ) : (
+
                             <div className="admin-dog-placeholder">
                               🐾
                             </div>
+
                           )}
 
                           <div className="admin-recent-info">
 
                             <strong>
-                              {peludito.nombre}
+                              {
+                                peludito.nombre
+                              }
                             </strong>
 
                             <span>
@@ -418,12 +562,13 @@ const AdminDashboard = () => {
                   </div>
 
                   <h2>
-                    No hay peluditos cargados
+                    No hay peluditos
+                    cargados
                   </h2>
 
                   <p>
-                    Cuando agregues el primero,
-                    aparecerá acá.
+                    Cuando agregues el
+                    primero, aparecerá acá.
                   </p>
 
                 </div>

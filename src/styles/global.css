@@ -3556,3 +3556,146 @@ select {
 .admin-password-toggle:focus {
   outline: none;
 }
+/* =========================================================
+   DASHBOARD - SOLICITUDES
+   ========================================================= */
+
+.admin-stat-link {
+  position: relative;
+
+  color: inherit;
+  text-decoration: none;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.admin-stat-link:hover {
+  transform: translateY(-2px);
+
+  border-color: #d8c6cb;
+
+  box-shadow:
+    0 8px 25px
+    rgba(80, 40, 50, 0.08);
+}
+
+.admin-stat-arrow {
+  position: absolute;
+
+  top: 50%;
+  right: 18px;
+
+  transform: translateY(-50%);
+
+  font-size: 18px;
+  color: #8c1738;
+}
+
+
+/* =========================================================
+   AVISO SOLICITUDES PENDIENTES
+   ========================================================= */
+
+.admin-pending-notice {
+  display: grid;
+
+  grid-template-columns:
+    auto
+    1fr
+    auto;
+
+  gap: 16px;
+
+  align-items: center;
+
+  margin: 22px 0 28px;
+  padding: 17px 20px;
+
+  color: inherit;
+  text-decoration: none;
+
+  background: #fff8f1;
+
+  border:
+    1px solid #f0ded0;
+
+  border-radius: 15px;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.admin-pending-notice:hover {
+  transform:
+    translateY(-1px);
+
+  box-shadow:
+    0 8px 22px
+    rgba(60, 40, 30, 0.06);
+}
+
+.admin-pending-notice-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+
+  font-size: 20px;
+
+  background: #ffffff;
+
+  border-radius: 12px;
+}
+
+.admin-pending-notice strong {
+  display: block;
+
+  margin-bottom: 3px;
+
+  font-size: 14px;
+
+  color: #342d2d;
+}
+
+.admin-pending-notice p {
+  margin: 0;
+
+  font-size: 13px;
+
+  color: #827676;
+}
+
+.admin-pending-notice > span {
+  font-size: 13px;
+  font-weight: 700;
+
+  color: #8c1738;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 650px) {
+  .admin-pending-notice {
+    grid-template-columns:
+      auto
+      1fr;
+  }
+
+  .admin-pending-notice > span {
+    grid-column:
+      1 / -1;
+
+    padding-left: 60px;
+  }
+}

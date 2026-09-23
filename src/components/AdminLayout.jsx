@@ -43,9 +43,15 @@ const AdminLayout = () => {
 
   return (
     <div className="admin-layout">
+
       <aside className="admin-sidebar">
-        {/* LOGO */}
+
+        {/* =====================================
+            LOGO
+            ===================================== */}
+
         <div className="admin-brand">
+
           <img
             src="/logoprote.png"
             alt="Protectora San Francisco de Asís"
@@ -54,10 +60,15 @@ const AdminLayout = () => {
           <span>
             Administración
           </span>
+
         </div>
 
-        {/* NAVEGACIÓN */}
+        {/* =====================================
+            NAVEGACIÓN
+            ===================================== */}
+
         <nav className="admin-nav">
+
           <NavLink
             to="/admin"
             end
@@ -79,12 +90,25 @@ const AdminLayout = () => {
             <span>♡</span>
             Solicitudes
           </NavLink>
+
+          <NavLink
+            to="/admin/padrinos"
+          >
+            <span>❤️</span>
+            Padrinos
+          </NavLink>
+
         </nav>
 
-        {/* PIE DEL ADMIN */}
+        {/* =====================================
+            PIE DEL ADMIN
+            ===================================== */}
+
         <div className="admin-sidebar-footer">
+
           {usuario?.email && (
             <div className="admin-user">
+
               <small>
                 Sesión iniciada
               </small>
@@ -92,6 +116,7 @@ const AdminLayout = () => {
               <span>
                 {usuario.email}
               </span>
+
             </div>
           )}
 
@@ -114,12 +139,19 @@ const AdminLayout = () => {
               ? "Cerrando..."
               : "Cerrar sesión"}
           </button>
+
         </div>
+
       </aside>
+
+      {/* =====================================
+          CONTENIDO
+          ===================================== */}
 
       <main className="admin-main">
         <Outlet />
       </main>
+
     </div>
   );
 };

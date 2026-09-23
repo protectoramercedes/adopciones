@@ -21,6 +21,8 @@ import AdminLogin from "./pages/admin/AdminLogin.jsx";
 import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
 import AdminPeluditos from "./pages/admin/AdminPeluditos.jsx";
 import AdminPeluditoForm from "./pages/admin/AdminPeluditoForm.jsx";
+import AdminSolicitudes from "./pages/admin/AdminSolicitudes.jsx";
+import AdminPadrinos from "./pages/admin/AdminPadrinos.jsx";
 
 const PublicLayout = () => {
   return (
@@ -29,6 +31,7 @@ const PublicLayout = () => {
 
       <main>
         <Routes>
+
           <Route
             path="/"
             element={<Home />}
@@ -63,6 +66,7 @@ const PublicLayout = () => {
             path="/finales-felices"
             element={<FinalesFelices />}
           />
+
         </Routes>
       </main>
 
@@ -77,24 +81,37 @@ const App = () => {
       <ScrollToTop />
 
       <Routes>
-        {/* LOGIN ADMIN */}
+
+        {/* =====================================
+            LOGIN ADMIN
+            ===================================== */}
+
         <Route
           path="/admin/login"
           element={<AdminLogin />}
         />
 
-        {/* ADMIN PROTEGIDO */}
+        {/* =====================================
+            ADMIN PROTEGIDO
+            ===================================== */}
+
         <Route
           element={<AdminProtectedRoute />}
         >
+
           <Route
             path="/admin"
             element={<AdminLayout />}
           >
+
+            {/* RESUMEN */}
+
             <Route
               index
               element={<AdminDashboard />}
             />
+
+            {/* PELUDITOS */}
 
             <Route
               path="peluditos"
@@ -110,14 +127,34 @@ const App = () => {
               path="peluditos/:id/editar"
               element={<AdminPeluditoForm />}
             />
+
+            {/* SOLICITUDES */}
+
+            <Route
+              path="solicitudes"
+              element={<AdminSolicitudes />}
+            />
+
+            {/* PADRINOS */}
+
+            <Route
+              path="padrinos"
+              element={<AdminPadrinos />}
+            />
+
           </Route>
+
         </Route>
 
-        {/* WEB PÚBLICA */}
+        {/* =====================================
+            WEB PÚBLICA
+            ===================================== */}
+
         <Route
           path="/*"
           element={<PublicLayout />}
         />
+
       </Routes>
     </>
   );

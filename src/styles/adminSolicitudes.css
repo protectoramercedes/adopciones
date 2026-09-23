@@ -1,0 +1,854 @@
+/* =========================================================
+   ADMIN - SOLICITUDES DE ADOPCIÓN
+   ========================================================= */
+
+
+/* =========================================================
+   ESTADO VACÍO
+   ========================================================= */
+
+.admin-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 320px;
+
+  margin-top: 28px;
+  padding: 50px 30px;
+
+  text-align: center;
+
+  background: #ffffff;
+  border: 1px solid #ece8e3;
+  border-radius: 22px;
+}
+
+.admin-empty-state > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 70px;
+  height: 70px;
+
+  margin-bottom: 18px;
+
+  font-size: 30px;
+
+  background: #f8f2f4;
+  border-radius: 50%;
+}
+
+.admin-empty-state h2 {
+  margin: 0 0 8px;
+
+  font-size: 24px;
+  color: #292525;
+}
+
+.admin-empty-state p {
+  max-width: 430px;
+  margin: 0;
+
+  line-height: 1.6;
+  color: #777070;
+}
+
+
+/* =========================================================
+   FILAS DE SOLICITUDES
+   ========================================================= */
+
+.admin-dogs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.admin-dog-row {
+  display: grid;
+
+  grid-template-columns:
+    minmax(180px, 1.4fr)
+    minmax(130px, 1fr)
+    minmax(130px, 1fr)
+    minmax(150px, 1fr)
+    auto
+    auto;
+
+  gap: 22px;
+
+  align-items: center;
+
+  padding: 18px 20px;
+
+  background: #ffffff;
+
+  border: 1px solid #ebe7e3;
+  border-radius: 16px;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.admin-dog-row:hover {
+  transform: translateY(-1px);
+
+  border-color: #ded6d1;
+
+  box-shadow:
+    0 8px 24px rgba(45, 35, 35, 0.06);
+}
+
+
+/* =========================================================
+   PERSONA
+   ========================================================= */
+
+.admin-dog-name {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  min-width: 0;
+}
+
+.admin-dog-name strong {
+  font-size: 16px;
+  font-weight: 700;
+  color: #282323;
+}
+
+.admin-dog-name span {
+  font-size: 13px;
+  color: #8a8181;
+}
+
+
+/* =========================================================
+   DATOS
+   ========================================================= */
+
+.admin-dog-data {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  min-width: 0;
+}
+
+.admin-dog-data small {
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.08em;
+
+  color: #a49b9b;
+}
+
+.admin-dog-data span {
+  overflow: hidden;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  color: #403939;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   ESTADOS
+   ========================================================= */
+
+.admin-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: max-content;
+
+  padding: 7px 11px;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  white-space: nowrap;
+
+  border-radius: 999px;
+}
+
+.admin-status-pendiente {
+  color: #956000;
+  background: #fff3d5;
+}
+
+.admin-status-en-evaluacion {
+  color: #285d7c;
+  background: #e6f3fa;
+}
+
+.admin-status-aprobada {
+  color: #267048;
+  background: #e6f5ed;
+}
+
+.admin-status-rechazada {
+  color: #9a3944;
+  background: #fbe8ea;
+}
+
+
+/* =========================================================
+   BOTÓN VER SOLICITUD
+   ========================================================= */
+
+.admin-edit-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 38px;
+
+  padding: 9px 15px;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+
+  color: #7f1735;
+
+  background: #fff;
+
+  border: 1px solid #dcc5cc;
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  text-decoration: none;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.admin-edit-button:hover {
+  color: #ffffff;
+  background: #8c1738;
+  border-color: #8c1738;
+}
+
+
+/* =========================================================
+   OVERLAY
+   ========================================================= */
+
+.admin-request-overlay {
+  position: fixed;
+  z-index: 1000;
+
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 30px;
+
+  background:
+    rgba(29, 24, 25, 0.58);
+
+  backdrop-filter: blur(4px);
+}
+
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+.admin-request-modal {
+  position: relative;
+
+  width: min(820px, 100%);
+  max-height: 90vh;
+
+  overflow-y: auto;
+
+  padding: 36px;
+
+  background: #ffffff;
+
+  border-radius: 24px;
+
+  box-shadow:
+    0 24px 80px rgba(25, 18, 20, 0.25);
+}
+
+.admin-request-modal::-webkit-scrollbar {
+  width: 8px;
+}
+
+.admin-request-modal::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.admin-request-modal::-webkit-scrollbar-thumb {
+  background: #ddd3d5;
+  border-radius: 999px;
+}
+
+
+/* =========================================================
+   CERRAR MODAL
+   ========================================================= */
+
+.admin-request-close {
+  position: absolute;
+
+  top: 20px;
+  right: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 38px;
+  height: 38px;
+
+  padding: 0;
+
+  font-size: 25px;
+  font-weight: 300;
+  line-height: 1;
+
+  color: #6e6565;
+
+  background: #f5f2f1;
+
+  border: 0;
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.admin-request-close:hover {
+  background: #ebe5e4;
+
+  transform: rotate(5deg);
+}
+
+
+/* =========================================================
+   CABECERA DEL MODAL
+   ========================================================= */
+
+.admin-request-modal > h2 {
+  margin:
+    7px
+    50px
+    4px
+    0;
+
+  font-size: 30px;
+  line-height: 1.15;
+
+  color: #292323;
+}
+
+.admin-request-for {
+  margin:
+    0
+    0
+    28px;
+
+  font-size: 15px;
+  color: #746b6b;
+}
+
+.admin-request-for strong {
+  color: #8c1738;
+}
+
+
+/* =========================================================
+   SECCIONES
+   ========================================================= */
+
+.admin-request-section {
+  padding: 22px 0;
+
+  border-top: 1px solid #eee9e7;
+}
+
+.admin-request-section h3 {
+  margin: 0 0 16px;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  color: #342e2e;
+}
+
+.admin-request-section p {
+  margin: 7px 0;
+
+  font-size: 14px;
+  line-height: 1.65;
+
+  color: #625a5a;
+}
+
+
+/* =========================================================
+   GRILLA DEL DETALLE
+   ========================================================= */
+
+.admin-request-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 12px;
+}
+
+.admin-request-grid > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  padding: 14px;
+
+  background: #faf8f7;
+
+  border: 1px solid #eee9e6;
+  border-radius: 12px;
+}
+
+.admin-request-grid small {
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.08em;
+
+  color: #a19797;
+}
+
+.admin-request-grid strong {
+  overflow-wrap: anywhere;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  color: #3e3737;
+}
+
+
+/* =========================================================
+   SELECT DE ESTADO
+   ========================================================= */
+
+.admin-request-status-select {
+  width: 100%;
+  max-width: 280px;
+
+  min-height: 44px;
+
+  padding: 0 40px 0 14px;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+
+  color: #423a3a;
+
+  background: #ffffff;
+
+  border: 1px solid #dcd4d1;
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.admin-request-status-select:focus {
+  border-color: #8c1738;
+
+  box-shadow:
+    0 0 0 3px rgba(140, 23, 56, 0.09);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1100px) {
+  .admin-dog-row {
+    grid-template-columns:
+      1.5fr
+      1fr
+      1fr
+      auto;
+  }
+
+  .admin-dog-data:nth-of-type(3) {
+    display: none;
+  }
+}
+
+
+@media (max-width: 760px) {
+  .admin-dog-row {
+    grid-template-columns:
+      1fr
+      auto;
+
+    gap: 14px;
+
+    padding: 18px;
+  }
+
+  .admin-dog-data {
+    display: none;
+  }
+
+  .admin-status {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .admin-edit-button {
+    grid-column:
+      1 / -1;
+
+    width: 100%;
+  }
+
+  .admin-request-overlay {
+    align-items: flex-end;
+
+    padding: 0;
+  }
+
+  .admin-request-modal {
+    width: 100%;
+    max-height: 94vh;
+
+    padding:
+      30px
+      20px
+      24px;
+
+    border-radius:
+      24px
+      24px
+      0
+      0;
+  }
+
+  .admin-request-grid {
+    grid-template-columns:
+      1fr 1fr;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .admin-request-grid {
+    grid-template-columns:
+      1fr;
+  }
+
+  .admin-request-modal > h2 {
+    font-size: 25px;
+  }
+}
+
+/* =========================================================
+   LISTADO NUEVO DE SOLICITUDES
+   ========================================================= */
+
+.admin-solicitudes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+
+/* TARJETA */
+
+.admin-solicitud-card {
+  padding: 22px 24px;
+
+  background: #ffffff;
+
+  border: 1px solid #e9e4e1;
+  border-radius: 18px;
+
+  box-shadow:
+    0 2px 8px rgba(45, 35, 35, 0.025);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.admin-solicitud-card:hover {
+  transform: translateY(-2px);
+
+  border-color: #ddd3cf;
+
+  box-shadow:
+    0 10px 30px rgba(45, 35, 35, 0.07);
+}
+
+
+/* =========================================================
+   PARTE SUPERIOR
+   ========================================================= */
+
+.admin-solicitud-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding-bottom: 18px;
+
+  border-bottom: 1px solid #f0ece9;
+}
+
+
+/* PERSONA */
+
+.admin-solicitud-persona {
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  min-width: 0;
+}
+
+.admin-solicitud-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  width: 46px;
+  height: 46px;
+
+  font-size: 17px;
+  font-weight: 800;
+
+  color: #8c1738;
+
+  background: #f8edf0;
+
+  border-radius: 14px;
+}
+
+.admin-solicitud-persona > div {
+  min-width: 0;
+}
+
+.admin-solicitud-persona strong {
+  display: block;
+
+  margin-bottom: 3px;
+
+  font-size: 16px;
+  font-weight: 750;
+
+  color: #292323;
+}
+
+.admin-solicitud-persona p {
+  margin: 0;
+
+  font-size: 13px;
+
+  color: #8a8080;
+}
+
+.admin-solicitud-persona p b {
+  font-weight: 700;
+
+  color: #8c1738;
+}
+
+
+/* =========================================================
+   PARTE INFERIOR
+   ========================================================= */
+
+.admin-solicitud-bottom {
+  display: grid;
+
+  grid-template-columns:
+    minmax(120px, 1fr)
+    minmax(120px, 1fr)
+    minmax(150px, 1fr)
+    auto;
+
+  gap: 28px;
+
+  align-items: end;
+
+  padding-top: 18px;
+}
+
+
+/* DATOS */
+
+.admin-solicitud-dato {
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+
+  min-width: 0;
+}
+
+.admin-solicitud-dato small {
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.1em;
+
+  color: #aaa0a0;
+}
+
+.admin-solicitud-dato strong {
+  overflow: hidden;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  color: #403939;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   BOTÓN
+   ========================================================= */
+
+.admin-solicitud-ver {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  min-height: 40px;
+
+  padding: 0 16px;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+
+  color: #8c1738;
+
+  background: #ffffff;
+
+  border: 1px solid #dbc7cd;
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.admin-solicitud-ver span {
+  font-size: 16px;
+
+  transition:
+    transform 0.2s ease;
+}
+
+.admin-solicitud-ver:hover {
+  color: #ffffff;
+
+  background: #8c1738;
+
+  border-color: #8c1738;
+}
+
+.admin-solicitud-ver:hover span {
+  transform: translateX(3px);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 850px) {
+  .admin-solicitud-bottom {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-solicitud-ver {
+    grid-column: 1 / -1;
+
+    width: 100%;
+  }
+}
+
+
+@media (max-width: 520px) {
+  .admin-solicitud-card {
+    padding: 18px;
+  }
+
+  .admin-solicitud-top {
+    align-items: flex-start;
+  }
+
+  .admin-solicitud-avatar {
+    width: 42px;
+    height: 42px;
+  }
+
+  .admin-solicitud-bottom {
+    grid-template-columns:
+      1fr;
+
+    gap: 15px;
+  }
+
+  .admin-solicitud-ver {
+    grid-column: auto;
+
+    margin-top: 4px;
+  }
+}

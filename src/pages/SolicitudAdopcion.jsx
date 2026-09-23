@@ -8,7 +8,9 @@ import {
   useParams,
 } from "react-router-dom";
 
-import { supabase } from "../lib/supabase.js";
+import {
+  supabase,
+} from "../lib/supabase.js";
 
 const SolicitudAdopcion = () => {
   const { id } = useParams();
@@ -24,6 +26,12 @@ const SolicitudAdopcion = () => {
 
   const [enviado, setEnviado] =
     useState(false);
+
+  const [enviando, setEnviando] =
+    useState(false);
+
+  const [errorEnvio, setErrorEnvio] =
+    useState("");
 
   const [formulario, setFormulario] =
     useState({
@@ -46,9 +54,9 @@ const SolicitudAdopcion = () => {
       compromiso: false,
     });
 
-  /* =========================================
-     CARGAR PELUDITO DESDE SUPABASE
-     ========================================= */
+  /* =====================================================
+     CARGAR PELUDITO
+     ===================================================== */
 
   useEffect(() => {
     let activo = true;
@@ -88,12 +96,13 @@ const SolicitudAdopcion = () => {
 
         const fotoPrincipal =
           fotos.find(
-            (foto) => foto.principal
+            (foto) =>
+              foto.principal === true
           ) ||
           [...fotos].sort(
             (a, b) =>
-              (a.orden ?? 0) -
-              (b.orden ?? 0)
+              (a.orden ?? 999) -
+              (b.orden ?? 999)
           )[0];
 
         const peluditoPreparado = {
@@ -138,16 +147,18 @@ const SolicitudAdopcion = () => {
       }
     };
 
-    cargarPeludito();
+    if (id) {
+      cargarPeludito();
+    }
 
     return () => {
       activo = false;
     };
   }, [id]);
 
-  /* =========================================
-     FORMULARIO
-     ========================================= */
+  /* =====================================================
+     CAMBIOS DEL FORMULARIO
+     ===================================================== */
 
   const manejarCambio = (e) => {
     const {
@@ -165,63 +176,163 @@ const SolicitudAdopcion = () => {
           ? checked
           : value,
     }));
+
+    if (errorEnvio) {
+      setErrorEnvio("");
+    }
   };
 
-  /* =========================================
-     ENVIAR SOLICITUD
-     Por ahora conserva el comportamiento
-     actual. Después lo conectamos a Supabase.
-     ========================================= */
+  /* =====================================================
+     ENVIAR SOLICITUD A SUPABASE
+     ===================================================== */
 
-  const manejarEnvio = (e) => {
+  const manejarEnvio = async (e) => {
     e.preventDefault();
 
-    console.log({
-      perroId: perro.id,
-      perroNombre: perro.nombre,
-      ...formulario,
-    });
+    if (!perro || enviando) {
+      return;
+    }
 
-    setEnviado(true);
+    try {
+      setEnviando(true);
+      setErrorEnvio("");
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+      const {
+        error,
+      } = await supabase
+        .from("solicitudes_adopcion")
+        .insert({
+          peludito_id:
+            perro.id,
+
+          nombre:
+            formulario.nombre.trim(),
+
+          apellido:
+            formulario.apellido.trim(),
+
+          telefono:
+            formulario.telefono.trim(),
+
+          email:
+            formulario.email
+              .trim()
+              .toLowerCase(),
+
+          localidad:
+            formulario.localidad.trim(),
+
+          vivienda:
+            formulario.vivienda,
+
+          vivienda_propia:
+            formulario.viviendaPropia,
+
+          patio:
+            formulario.patio,
+
+          patio_cerrado:
+            formulario.patioCerrado ||
+            null,
+
+          personas_hogar:
+            Number(
+              formulario.personasHogar
+            ),
+
+          ninos:
+            formulario.ninos,
+
+          otros_animales:
+            formulario.otrosAnimales,
+
+          detalle_animales:
+            formulario.detalleAnimales
+              ?.trim() ||
+            null,
+
+          horas_solo:
+            formulario.horasSolo ||
+            null,
+
+          experiencia:
+            formulario.experiencia
+              ?.trim() ||
+            null,
+
+          motivo:
+            formulario.motivo.trim(),
+
+          estado:
+            "Pendiente",
+        });
+
+      if (error) {
+        throw error;
+      }
+
+      setEnviado(true);
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    } catch (error) {
+      console.error(
+        "Error enviando solicitud:",
+        error
+      );
+
+      setErrorEnvio(
+        "No pudimos enviar tu solicitud. Por favor, intentá nuevamente."
+      );
+    } finally {
+      setEnviando(false);
+    }
   };
 
-  /* =========================================
+  /* =====================================================
      CARGANDO
-     ========================================= */
+     ===================================================== */
 
   if (cargando) {
     return (
       <section className="page-container">
+
         <div className="peludito-no-encontrado">
-          <span>🐾</span>
+
+          <span>
+            🐾
+          </span>
 
           <h1>
             Cargando peludito...
           </h1>
 
           <p>
-            Estamos preparando la solicitud
-            de adopción.
+            Estamos preparando la
+            solicitud de adopción.
           </p>
+
         </div>
+
       </section>
     );
   }
 
-  /* =========================================
-     NO ENCONTRADO
-     ========================================= */
+  /* =====================================================
+     PELUDITO NO ENCONTRADO
+     ===================================================== */
 
   if (!perro) {
     return (
       <section className="page-container">
+
         <div className="peludito-no-encontrado">
-          <span>🐾</span>
+
+          <span>
+            🐾
+          </span>
 
           <h1>
             Peludito no encontrado
@@ -229,7 +340,7 @@ const SolicitudAdopcion = () => {
 
           <p>
             {errorCarga ||
-              "No pudimos encontrar la historia que estabas buscando."}
+              "No pudimos encontrar al peludito que estabas buscando."}
           </p>
 
           <Link
@@ -238,14 +349,16 @@ const SolicitudAdopcion = () => {
           >
             Volver a adopciones
           </Link>
+
         </div>
+
       </section>
     );
   }
 
-  /* =========================================
+  /* =====================================================
      SOLICITUD ENVIADA
-     ========================================= */
+     ===================================================== */
 
   if (enviado) {
     return (
@@ -267,10 +380,11 @@ const SolicitudAdopcion = () => {
           </h1>
 
           <p>
-            Recibimos tu solicitud de adopción.
-            La Protectora San Francisco de Asís
-            revisará la información y se pondrá
-            en contacto contigo para continuar
+            Recibimos tu solicitud de
+            adopción. La Protectora San
+            Francisco de Asís revisará la
+            información y se pondrá en
+            contacto contigo para continuar
             el proceso.
           </p>
 
@@ -282,6 +396,7 @@ const SolicitudAdopcion = () => {
             />
 
             <div>
+
               <small>
                 SOLICITUD PARA
               </small>
@@ -296,6 +411,7 @@ const SolicitudAdopcion = () => {
                     .slice(0, 8)
                     .toUpperCase()}
               </span>
+
             </div>
 
           </div>
@@ -313,9 +429,9 @@ const SolicitudAdopcion = () => {
     );
   }
 
-  /* =========================================
-     PÁGINA
-     ========================================= */
+  /* =====================================================
+     FORMULARIO
+     ===================================================== */
 
   return (
     <main className="solicitud-page">
@@ -332,9 +448,9 @@ const SolicitudAdopcion = () => {
 
       <div className="solicitud-layout">
 
-        {/* =====================================
-            PELUDITO
-            ===================================== */}
+        {/* ===============================================
+            INFORMACIÓN DEL PELUDITO
+            =============================================== */}
 
         <aside className="solicitud-perro">
 
@@ -354,9 +470,11 @@ const SolicitudAdopcion = () => {
             </h2>
 
             <p>
+
               {perro.edad != null
                 ? `${perro.edad} ${
-                    Number(perro.edad) === 1
+                    Number(perro.edad) ===
+                    1
                       ? "año"
                       : "años"
                   }`
@@ -371,6 +489,7 @@ const SolicitudAdopcion = () => {
 
               {perro.tamano ||
                 "Tamaño no especificado"}
+
             </p>
 
             <small>
@@ -384,21 +503,24 @@ const SolicitudAdopcion = () => {
 
           <div className="solicitud-aviso">
 
-            <span>🐾</span>
+            <span>
+              🐾
+            </span>
 
             <p>
-              Adoptar es una decisión para toda
-              la vida. Este formulario nos ayuda
-              a conocerte un poquito mejor.
+              Adoptar es una decisión para
+              toda la vida. Este formulario
+              nos ayuda a conocerte un
+              poquito mejor.
             </p>
 
           </div>
 
         </aside>
 
-        {/* =====================================
-            FORMULARIO
-            ===================================== */}
+        {/* ===============================================
+            CONTENIDO
+            =============================================== */}
 
         <div className="solicitud-contenido">
 
@@ -416,8 +538,8 @@ const SolicitudAdopcion = () => {
             </h1>
 
             <p>
-              Contanos un poco sobre vos y el
-              hogar que podría recibirlo.
+              Contanos un poco sobre vos y
+              el hogar que podría recibirlo.
             </p>
 
           </div>
@@ -427,9 +549,9 @@ const SolicitudAdopcion = () => {
             onSubmit={manejarEnvio}
           >
 
-            {/* ===============================
+            {/* ===========================================
                 1 - SOBRE VOS
-                =============================== */}
+                =========================================== */}
 
             <fieldset>
 
@@ -529,9 +651,9 @@ const SolicitudAdopcion = () => {
 
             </fieldset>
 
-            {/* ===============================
+            {/* ===========================================
                 2 - TU HOGAR
-                =============================== */}
+                =========================================== */}
 
             <fieldset>
 
@@ -555,6 +677,7 @@ const SolicitudAdopcion = () => {
                       manejarCambio
                     }
                   >
+
                     <option value="">
                       Seleccionar
                     </option>
@@ -570,7 +693,9 @@ const SolicitudAdopcion = () => {
                     <option value="Otro">
                       Otro
                     </option>
+
                   </select>
+
                 </label>
 
                 <label>
@@ -586,6 +711,7 @@ const SolicitudAdopcion = () => {
                       manejarCambio
                     }
                   >
+
                     <option value="">
                       Seleccionar
                     </option>
@@ -597,7 +723,9 @@ const SolicitudAdopcion = () => {
                     <option value="No">
                       No
                     </option>
+
                   </select>
+
                 </label>
 
                 <label>
@@ -613,6 +741,7 @@ const SolicitudAdopcion = () => {
                       manejarCambio
                     }
                   >
+
                     <option value="">
                       Seleccionar
                     </option>
@@ -624,7 +753,9 @@ const SolicitudAdopcion = () => {
                     <option value="No">
                       No
                     </option>
+
                   </select>
+
                 </label>
 
                 <label>
@@ -639,6 +770,7 @@ const SolicitudAdopcion = () => {
                       manejarCambio
                     }
                   >
+
                     <option value="">
                       Seleccionar
                     </option>
@@ -654,7 +786,9 @@ const SolicitudAdopcion = () => {
                     <option value="No aplica">
                       No aplica
                     </option>
+
                   </select>
+
                 </label>
 
                 <label>
@@ -673,6 +807,7 @@ const SolicitudAdopcion = () => {
                     }
                     placeholder="Ej: 3"
                   />
+
                 </label>
 
                 <label>
@@ -688,6 +823,7 @@ const SolicitudAdopcion = () => {
                       manejarCambio
                     }
                   >
+
                     <option value="">
                       Seleccionar
                     </option>
@@ -699,16 +835,18 @@ const SolicitudAdopcion = () => {
                     <option value="No">
                       No
                     </option>
+
                   </select>
+
                 </label>
 
               </div>
 
             </fieldset>
 
-            {/* ===============================
+            {/* ===========================================
                 3 - OTROS ANIMALES
-                =============================== */}
+                =========================================== */}
 
             <fieldset>
 
@@ -732,6 +870,7 @@ const SolicitudAdopcion = () => {
                       manejarCambio
                     }
                   >
+
                     <option value="">
                       Seleccionar
                     </option>
@@ -743,7 +882,9 @@ const SolicitudAdopcion = () => {
                     <option value="No">
                       No
                     </option>
+
                   </select>
+
                 </label>
 
                 <label>
@@ -758,6 +899,7 @@ const SolicitudAdopcion = () => {
                       manejarCambio
                     }
                   >
+
                     <option value="">
                       Seleccionar
                     </option>
@@ -777,11 +919,14 @@ const SolicitudAdopcion = () => {
                     <option value="Más de 8">
                       Más de 8 horas
                     </option>
+
                   </select>
+
                 </label>
 
                 {formulario.otrosAnimales ===
                   "Sí" && (
+
                   <label className="form-full">
 
                     Contanos sobre ellos
@@ -798,15 +943,16 @@ const SolicitudAdopcion = () => {
                     />
 
                   </label>
+
                 )}
 
               </div>
 
             </fieldset>
 
-            {/* ===============================
+            {/* ===========================================
                 4 - LA ADOPCIÓN
-                =============================== */}
+                =========================================== */}
 
             <fieldset>
 
@@ -859,9 +1005,9 @@ const SolicitudAdopcion = () => {
 
             </fieldset>
 
-            {/* ===============================
+            {/* ===========================================
                 COMPROMISO
-                =============================== */}
+                =========================================== */}
 
             <label className="compromiso-check">
 
@@ -888,16 +1034,32 @@ const SolicitudAdopcion = () => {
 
             </label>
 
-            {/* ===============================
-                ENVIAR
-                =============================== */}
+            {/* ===========================================
+                ERROR DE ENVÍO
+                =========================================== */}
+
+            {errorEnvio && (
+
+              <div className="admin-login-error">
+                {errorEnvio}
+              </div>
+
+            )}
+
+            {/* ===========================================
+                BOTÓN
+                =========================================== */}
 
             <button
               type="submit"
               className="enviar-solicitud"
+              disabled={enviando}
             >
-              ❤️ Enviar solicitud para{" "}
-              {perro.nombre}
+
+              {enviando
+                ? "Enviando solicitud..."
+                : `❤️ Enviar solicitud para ${perro.nombre}`}
+
             </button>
 
           </form>
