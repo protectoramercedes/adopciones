@@ -11,6 +11,9 @@ import {
   supabase,
 } from "../../lib/supabase.js";
 
+import CargaRapidaPeludito
+  from "../../components/CargaRapidaPeludito.jsx";
+
 const AdminDashboard = () => {
   const [peluditos, setPeluditos] =
     useState([]);
@@ -37,10 +40,6 @@ const AdminDashboard = () => {
       try {
         setCargando(true);
         setError("");
-
-        /* -----------------------------------------------
-           CARGAMOS PELUDITOS Y SOLICITUDES EN PARALELO
-           ----------------------------------------------- */
 
         const [
           resultadoPeluditos,
@@ -76,10 +75,6 @@ const AdminDashboard = () => {
             ),
         ]);
 
-        /* -----------------------------------------------
-           ERRORES
-           ----------------------------------------------- */
-
         if (
           resultadoPeluditos.error
         ) {
@@ -99,10 +94,6 @@ const AdminDashboard = () => {
         if (!activo) {
           return;
         }
-
-        /* -----------------------------------------------
-           GUARDAMOS RESULTADOS
-           ----------------------------------------------- */
 
         setPeluditos(
           resultadoPeluditos.data ??
@@ -303,12 +294,50 @@ const AdminDashboard = () => {
           <>
 
             {/* =============================================
+                CARGA EXPRESS
+                ============================================= */}
+
+            <div className="admin-quick-upload">
+
+              <div className="admin-quick-upload-content">
+
+                <span className="admin-quick-eyebrow">
+                  CARGA EXPRESS
+                </span>
+
+                <h2>
+                  Cargá un peludito
+                  en segundos
+                </h2>
+
+                <p>
+                  Sacale una foto, completá
+                  sus datos básicos y listo.
+                  Después podés completar
+                  toda su ficha con tranquilidad.
+                </p>
+
+              </div>
+
+              <div className="admin-quick-camera">
+
+                <CargaRapidaPeludito
+                  className="admin-camera-button-dashboard"
+                />
+
+                <span className="admin-quick-camera-help">
+                  Tocá para abrir la cámara
+                </span>
+
+              </div>
+
+            </div>
+
+            {/* =============================================
                 ESTADÍSTICAS
                 ============================================= */}
 
             <div className="admin-stats">
-
-              {/* TOTAL */}
 
               <div className="admin-stat">
 
@@ -330,8 +359,6 @@ const AdminDashboard = () => {
 
               </div>
 
-              {/* EN ADOPCIÓN */}
-
               <div className="admin-stat">
 
                 <span>
@@ -352,8 +379,6 @@ const AdminDashboard = () => {
 
               </div>
 
-              {/* ADOPTADOS */}
-
               <div className="admin-stat">
 
                 <span>
@@ -373,8 +398,6 @@ const AdminDashboard = () => {
                 </div>
 
               </div>
-
-              {/* SOLICITUDES */}
 
               <Link
                 to="/admin/solicitudes"

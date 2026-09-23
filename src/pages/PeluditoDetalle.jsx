@@ -18,6 +18,9 @@ const PeluditoDetalle = () => {
   const [perro, setPerro] =
     useState(null);
 
+  const [padrinos, setPadrinos] =
+    useState([]);
+
   const [cargando, setCargando] =
     useState(true);
 
@@ -90,6 +93,57 @@ const PeluditoDetalle = () => {
   }, [id]);
 
   /* =======================================================
+     CARGAR PADRINOS ACTIVOS
+     ======================================================= */
+
+  useEffect(() => {
+    const cargarPadrinos = async () => {
+      if (!id) {
+        return;
+      }
+
+      try {
+        const {
+          data,
+          error: supabaseError,
+        } = await supabase
+          .from("padrinazgos")
+          .select(`
+            id,
+            nombre,
+            anonimo
+          `)
+          .eq("peludito_id", id)
+          .eq("estado", "activo")
+          .order("created_at", {
+            ascending: true,
+          });
+
+        if (supabaseError) {
+          throw supabaseError;
+        }
+
+        setPadrinos(
+          data ?? []
+        );
+      } catch (error) {
+        console.error(
+          "Error cargando padrinos:",
+          error
+        );
+
+        /*
+         * Si falla la consulta de padrinos,
+         * no rompemos la ficha del peludito.
+         */
+        setPadrinos([]);
+      }
+    };
+
+    cargarPadrinos();
+  }, [id]);
+
+  /* =======================================================
      ORDENAR FOTOS
      ======================================================= */
 
@@ -106,6 +160,7 @@ const PeluditoDetalle = () => {
         /*
          * La principal siempre primero.
          */
+
         if (
           a.principal &&
           !b.principal
@@ -123,6 +178,7 @@ const PeluditoDetalle = () => {
         /*
          * Después respetamos orden.
          */
+
         return (
           (a.orden ?? 999) -
           (b.orden ?? 999)
@@ -141,7 +197,9 @@ const PeluditoDetalle = () => {
 
         <div className="peludito-no-encontrado">
 
-          <span>🐾</span>
+          <span>
+            🐾
+          </span>
 
           <h1>
             Cargando peludito...
@@ -167,7 +225,9 @@ const PeluditoDetalle = () => {
 
         <div className="peludito-no-encontrado">
 
-          <span>🐾</span>
+          <span>
+            🐾
+          </span>
 
           <h1>
             Peludito no encontrado
@@ -470,6 +530,97 @@ const PeluditoDetalle = () => {
             </div>
 
           </div>
+
+          {/* =================================================
+              PADRINOS Y MADRINAS
+              ================================================= */}
+
+          {perro.apadrinable && (
+            <div className="detalle-padrinos">
+
+              <div className="detalle-padrinos-header">
+
+                <span className="detalle-padrinos-icono">
+                  ❤️
+                </span>
+
+                <div>
+                  <span className="detalle-padrinos-eyebrow">
+                    UNA RED QUE ACOMPAÑA
+                  </span>
+
+                  <h3>
+                    Padrinos y madrinas de{" "}
+                    {perro.nombre}
+                  </h3>
+
+                  <p>
+                    Personas que eligieron
+                    acompañarlo mientras espera
+                    su hogar.
+                  </p>
+                </div>
+
+              </div>
+
+              {padrinos.length > 0 ? (
+                <div className="detalle-padrinos-lista">
+
+                  {padrinos.map(
+                    (padrino) => (
+                      <div
+                        className="detalle-padrino"
+                        key={padrino.id}
+                      >
+
+                        <span className="detalle-padrino-huella">
+                          🐾
+                        </span>
+
+                        <strong>
+                          {padrino.anonimo
+                            ? "Padrino/a anónimo/a"
+                            : padrino.nombre}
+                        </strong>
+
+                      </div>
+                    )
+                  )}
+
+                </div>
+              ) : (
+                <div className="detalle-padrinos-vacio">
+
+                  <span>
+                    🐾
+                  </span>
+
+                  <div>
+                    <strong>
+                      {perro.nombre} todavía
+                      está esperando su primer
+                      padrino o madrina.
+                    </strong>
+
+                    <p>
+                      Podés ser la primera persona
+                      en acompañarlo.
+                    </p>
+                  </div>
+
+                </div>
+              )}
+
+              <Link
+                to={`/apadrinar?peludito=${perro.id}`}
+                className="detalle-padrinos-cta"
+              >
+                ❤️ Quiero apadrinar a{" "}
+                {perro.nombre}
+              </Link>
+
+            </div>
+          )}
 
           {/* =================================================
               ACCIONES

@@ -3699,3 +3699,646 @@ select {
     padding-left: 60px;
   }
 }
+
+/* =========================================================
+   PADRINOS EN DETALLE DEL PELUDITO
+   ========================================================= */
+
+.detalle-padrinos {
+  margin-top: 30px;
+  padding: 26px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #fff9fa 0%,
+      #ffffff 100%
+    );
+
+  border: 1px solid #eadde1;
+  border-radius: 20px;
+}
+
+.detalle-padrinos-header {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 15px;
+}
+
+.detalle-padrinos-icono {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 46px;
+
+  width: 46px;
+  height: 46px;
+
+  background: #f7e9ed;
+
+  border-radius: 14px;
+
+  font-size: 18px;
+}
+
+.detalle-padrinos-eyebrow {
+  display: block;
+
+  margin-bottom: 5px;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 0.12em;
+
+  color: #a5163d;
+}
+
+.detalle-padrinos-header h3 {
+  margin: 0;
+
+  font-size: 20px;
+
+  color: #302929;
+}
+
+.detalle-padrinos-header p {
+  margin: 7px 0 0;
+
+  font-size: 13px;
+  line-height: 1.6;
+
+  color: #817676;
+}
+
+
+/* LISTA */
+
+.detalle-padrinos-lista {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  margin-top: 20px;
+}
+
+.detalle-padrino {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 10px 14px;
+
+  background: #ffffff;
+
+  border: 1px solid #eadfe2;
+  border-radius: 999px;
+}
+
+.detalle-padrino-huella {
+  font-size: 13px;
+}
+
+.detalle-padrino strong {
+  font-size: 13px;
+  font-weight: 700;
+
+  color: #514747;
+}
+
+
+/* SIN PADRINOS */
+
+.detalle-padrinos-vacio {
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  margin-top: 20px;
+  padding: 16px;
+
+  background: #ffffff;
+
+  border: 1px dashed #decbd0;
+  border-radius: 14px;
+}
+
+.detalle-padrinos-vacio > span {
+  font-size: 22px;
+}
+
+.detalle-padrinos-vacio strong {
+  display: block;
+
+  font-size: 13px;
+
+  color: #4d4444;
+}
+
+.detalle-padrinos-vacio p {
+  margin: 4px 0 0;
+
+  font-size: 12px;
+
+  color: #8d8282;
+}
+
+
+/* CTA */
+
+.detalle-padrinos-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  margin-top: 20px;
+  padding: 13px 18px;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  color: #a5163d;
+
+  background: #ffffff;
+
+  border: 1px solid #dcbfc7;
+  border-radius: 12px;
+
+  text-decoration: none;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.detalle-padrinos-cta:hover {
+  color: #ffffff;
+
+  background: #a5163d;
+
+  transform: translateY(-1px);
+}
+
+
+@media (max-width: 600px) {
+  .detalle-padrinos {
+    padding: 20px;
+  }
+
+  .detalle-padrinos-header {
+    gap: 11px;
+  }
+
+  .detalle-padrinos-icono {
+    flex-basis: 40px;
+
+    width: 40px;
+    height: 40px;
+  }
+
+  .detalle-padrinos-header h3 {
+    font-size: 18px;
+  }
+}
+
+/* =========================================================
+   CARGA EXPRESS — DASHBOARD ADMIN
+   ========================================================= */
+
+.admin-quick-upload {
+  position: relative;
+
+  width: 100%;
+  margin-bottom: 35px;
+  padding: 35px 40px;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 40px;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 90% 20%,
+      rgba(140, 23, 56, 0.13),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #ffffff 0%,
+      #fbf8f3 100%
+    );
+
+  border: 1px solid #e6dadd;
+  border-radius: 24px;
+
+  box-shadow:
+    0 12px 35px
+    rgba(80, 35, 48, 0.07);
+}
+
+
+/* DECORACIÓN DE FONDO */
+
+.admin-quick-upload::before {
+  content: "🐾";
+
+  position: absolute;
+  right: 180px;
+  bottom: -40px;
+
+  font-size: 130px;
+
+  opacity: 0.035;
+
+  transform: rotate(-18deg);
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   TEXTO
+   ========================================================= */
+
+.admin-quick-upload-content {
+  position: relative;
+  z-index: 1;
+
+  max-width: 600px;
+}
+
+
+.admin-quick-eyebrow {
+  display: block;
+
+  margin-bottom: 9px;
+
+  color: var(--bordo);
+
+  font-size: 0.7rem;
+  font-weight: 700;
+
+  letter-spacing: 2px;
+}
+
+
+.admin-quick-upload-content h2 {
+  margin: 0;
+
+  font-family:
+    "Playfair Display",
+    serif;
+
+  font-size: clamp(
+    2rem,
+    3vw,
+    2.8rem
+  );
+
+  line-height: 1.08;
+
+  color: var(--texto);
+}
+
+
+.admin-quick-upload-content p {
+  max-width: 520px;
+
+  margin-top: 14px;
+
+  color: #777;
+
+  font-size: 0.95rem;
+
+  line-height: 1.65;
+}
+
+
+/* =========================================================
+   ZONA DE CÁMARA
+   ========================================================= */
+
+.admin-quick-camera {
+  position: relative;
+  z-index: 2;
+
+  min-width: 220px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 11px;
+}
+
+
+/* =========================================================
+   BOTÓN GRANDE DE CÁMARA
+   Sobrescribe el estilo pequeño de admin-camera-button
+   únicamente dentro del Dashboard
+   ========================================================= */
+
+.admin-camera-button.admin-camera-button-dashboard {
+  width: 155px;
+  height: 155px;
+
+  min-height: 155px;
+
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 8px solid white;
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      145deg,
+      var(--bordo),
+      var(--bordo-oscuro)
+    );
+
+  color: transparent;
+
+  font-size: 0;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 15px 35px
+      rgba(140, 23, 56, 0.25),
+    0 0 0 1px
+      rgba(140, 23, 56, 0.08);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+
+/* CÁMARA */
+
+.admin-camera-button.admin-camera-button-dashboard::before {
+  content: "📷";
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 4.6rem;
+
+  line-height: 1;
+
+  filter:
+    drop-shadow(
+      0 4px 5px
+      rgba(0, 0, 0, 0.15)
+    );
+}
+
+
+/* HOVER */
+
+.admin-camera-button.admin-camera-button-dashboard:hover {
+  background:
+    linear-gradient(
+      145deg,
+      #9f1b40,
+      var(--bordo-oscuro)
+    );
+
+  transform:
+    translateY(-4px)
+    scale(1.025);
+
+  box-shadow:
+    0 20px 40px
+      rgba(140, 23, 56, 0.3),
+    0 0 0 1px
+      rgba(140, 23, 56, 0.08);
+}
+
+
+/* AL PRESIONAR */
+
+.admin-camera-button.admin-camera-button-dashboard:active {
+  transform:
+    translateY(0)
+    scale(0.96);
+
+  box-shadow:
+    0 8px 20px
+      rgba(140, 23, 56, 0.22);
+}
+
+
+/* ACCESIBILIDAD */
+
+.admin-camera-button.admin-camera-button-dashboard:focus-visible {
+  outline: 4px solid
+    rgba(140, 23, 56, 0.2);
+
+  outline-offset: 5px;
+}
+
+
+/* TEXTO DEBAJO */
+
+.admin-quick-camera-help {
+  color: var(--bordo);
+
+  font-size: 0.76rem;
+  font-weight: 700;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .admin-quick-upload {
+    padding: 30px;
+
+    grid-template-columns:
+      minmax(0, 1fr)
+      auto;
+
+    gap: 25px;
+  }
+
+
+  .admin-camera-button.admin-camera-button-dashboard {
+    width: 135px;
+    height: 135px;
+
+    min-height: 135px;
+  }
+
+
+  .admin-camera-button.admin-camera-button-dashboard::before {
+    font-size: 4rem;
+  }
+
+
+  .admin-quick-camera {
+    min-width: 160px;
+  }
+}
+
+
+/* =========================================================
+   CELULAR
+   La cámara pasa a ser la protagonista
+   ========================================================= */
+
+@media (max-width: 750px) {
+
+  .admin-quick-upload {
+    margin-bottom: 28px;
+
+    padding:
+      28px
+      20px
+      30px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 25px;
+
+    border-radius: 20px;
+
+    text-align: center;
+  }
+
+
+  .admin-quick-upload::before {
+    right: -25px;
+    bottom: -35px;
+
+    font-size: 120px;
+
+    opacity: 0.035;
+  }
+
+
+  .admin-quick-upload-content {
+    max-width: 100%;
+  }
+
+
+  .admin-quick-eyebrow {
+    margin-bottom: 8px;
+  }
+
+
+  .admin-quick-upload-content h2 {
+    font-size: 2.1rem;
+  }
+
+
+  .admin-quick-upload-content p {
+    max-width: 420px;
+
+    margin:
+      12px auto
+      0;
+
+    font-size: 0.88rem;
+
+    line-height: 1.55;
+  }
+
+
+  .admin-quick-camera {
+    width: 100%;
+    min-width: 0;
+
+    gap: 12px;
+  }
+
+
+  .admin-camera-button.admin-camera-button-dashboard {
+    width: 175px;
+    height: 175px;
+
+    min-height: 175px;
+
+    border-width: 9px;
+
+    box-shadow:
+      0 16px 38px
+        rgba(140, 23, 56, 0.28),
+      0 0 0 1px
+        rgba(140, 23, 56, 0.08);
+  }
+
+
+  .admin-camera-button.admin-camera-button-dashboard::before {
+    font-size: 5rem;
+  }
+
+
+  .admin-quick-camera-help {
+    font-size: 0.8rem;
+  }
+
+}
+
+
+/* =========================================================
+   CELULAR PEQUEÑO
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+  .admin-quick-upload {
+    padding:
+      25px
+      16px
+      28px;
+  }
+
+
+  .admin-quick-upload-content h2 {
+    font-size: 1.85rem;
+  }
+
+
+  .admin-quick-upload-content p {
+    font-size: 0.83rem;
+  }
+
+
+  .admin-camera-button.admin-camera-button-dashboard {
+    width: 160px;
+    height: 160px;
+
+    min-height: 160px;
+  }
+
+
+  .admin-camera-button.admin-camera-button-dashboard::before {
+    font-size: 4.5rem;
+  }
+
+}
